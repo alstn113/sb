@@ -1,12 +1,11 @@
 name: Server CI
 
 on:
-  push:
-    branches: ['main', 'dev']
-    paths: ['server/**']
   pull_request:
     branches: ['main', 'dev']
     paths: ['server/**']
+    types: [ opened, reopened, synchronize ]
+
 
 jobs:
   build:
