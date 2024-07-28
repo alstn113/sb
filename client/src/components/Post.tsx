@@ -1,11 +1,7 @@
-import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import styled from '@emotion/styled';
 
-import ErrorFallback from './ErrorFallback';
 import PostContents from './PostContents';
-import LoadingSpinner from './LoadingSpinner';
+import SuspensedErrorBoundary from './SuspensedErrorBoundary';
 
 interface PostProps {
   id: number;
@@ -14,23 +10,9 @@ interface PostProps {
 const Post = ({ id }: PostProps) => {
   return (
     <ContentWrapper>
-      <QueryErrorResetBoundary>
-        {({ reset }) => (
-          <ErrorBoundary
-            onReset={reset}
-            fallbackRender={({ error, resetErrorBoundary }) => (
-              <ErrorFallback
-                error={error}
-                resetErrorBoundary={resetErrorBoundary}
-              />
-            )}
-          >
-            <Suspense fallback={<LoadingSpinner />}>
-              <PostContents id={id} />
-            </Suspense>
-          </ErrorBoundary>
-        )}
-      </QueryErrorResetBoundary>
+      <SuspensedErrorBoundary>
+        <PostContents id={id} />
+      </SuspensedErrorBoundary>
     </ContentWrapper>
   );
 };
