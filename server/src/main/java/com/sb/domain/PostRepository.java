@@ -1,4 +1,4 @@
-package sb.domain;
+package com.sb.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

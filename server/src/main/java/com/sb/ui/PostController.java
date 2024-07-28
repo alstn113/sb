@@ -1,4 +1,4 @@
-package sb.ui;
+package com.sb.ui;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sb.application.PostRequest;
-import sb.application.PostResponse;
-import sb.application.PostService;
+import com.sb.application.PostRequest;
+import com.sb.application.PostResponse;
+import com.sb.application.PostService;
 
 @RestController
 public class PostController {

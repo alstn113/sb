@@ -1,10 +1,10 @@
-package sb.application;
+package com.sb.application;
 
 import java.util.List;
+import com.sb.domain.Post;
+import com.sb.domain.PostRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sb.domain.Post;
-import sb.domain.PostRepository;
 
 @Service
 public class PostService {

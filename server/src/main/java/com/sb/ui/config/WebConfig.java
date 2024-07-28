@@ -1,4 +1,4 @@
-package sb.ui.config;
+package com.sb.ui.config;
 
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

@@ -1,4 +1,4 @@
-package sb.application;
+package com.sb.application;
 
 import jakarta.validation.constraints.NotBlank;
 

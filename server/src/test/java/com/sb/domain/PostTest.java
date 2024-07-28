@@ -1,7 +1,8 @@
-package sb.domain;
+package com.sb.domain;
 
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+import com.sb.domain.Post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

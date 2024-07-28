@@ -1,8 +1,8 @@
-package sb.application;
+package com.sb.application;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import sb.domain.Post;
+import com.sb.domain.Post;
 
 @Component
 public class PostMapper {
