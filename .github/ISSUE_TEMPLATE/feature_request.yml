@@ -1,6 +1,6 @@
 name: 기능 제안
 description: 새로운 기능을 제안해주세요.
-labels: ['feature']
+labels: ['Feature']
 body:
   - type: markdown
     attributes:

@@ -1,6 +1,6 @@
 name: 버그 신고
 description: 버그를 신고해주세요.
-labels: ['bug']
+labels: ['Bug']
 body:
   - type: markdown
     attributes:
