@@ -15,21 +15,11 @@ const Post = ({ id }: PostProps) => {
   return (
     <ContentWrapper>
       <QueryErrorResetBoundary>
-        {({ reset }) => (
-          <ErrorBoundary
-            onReset={reset}
-            fallbackRender={({ error, resetErrorBoundary }) => (
-              <ErrorFallback
-                error={error}
-                resetErrorBoundary={resetErrorBoundary}
-              />
-            )}
-          >
-            <Suspense fallback={<LoadingSpinner />}>
-              <PostContents id={id} />
-            </Suspense>
-          </ErrorBoundary>
-        )}
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <PostContents id={id} />
+          </Suspense>
+        </ErrorBoundary>
       </QueryErrorResetBoundary>
     </ContentWrapper>
   );

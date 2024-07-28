@@ -7,23 +7,26 @@ interface ErrorFallbackProps {
 }
 
 const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
-  if (error.response?.status === 404) {
-    return (
-      <Wrapper>
-        <p>404 Not Found</p>
-        <pre>{error.message}</pre>
-        <Button onClick={resetErrorBoundary}>Try again</Button>
-      </Wrapper>
-    );
-  }
+  const status = error.response?.status;
 
-  return (
-    <Wrapper>
-      <p>Something went wrong:</p>
-      <pre>{error.message}</pre>
-      <Button onClick={resetErrorBoundary}>Try again</Button>
-    </Wrapper>
-  );
+  switch (status) {
+    case 404:
+      return (
+        <Wrapper>
+          <p>404 Not Found</p>
+          <pre>{error.message}</pre>
+          <Button onClick={resetErrorBoundary}>Try again</Button>
+        </Wrapper>
+      );
+    default:
+      return (
+        <Wrapper>
+          <p>Something went wrong:</p>
+          <pre>{error.message}</pre>
+          <Button onClick={resetErrorBoundary}>Try again</Button>
+        </Wrapper>
+      );
+  }
 };
 
 const Wrapper = styled.div`
