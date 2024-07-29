@@ -4,7 +4,7 @@ import Post from './components/Post';
 const App = () => {
   return (
     <Container>
-      <h1>Suspense Test</h1>
+      <h1>테스트 페이지</h1>
       <Wrapper>
         {[-1, 1, 2, -2].map((id) => (
           <Post key={id} id={id} />

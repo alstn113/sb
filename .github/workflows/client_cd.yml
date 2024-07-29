@@ -1,0 +1,11 @@
+name: Client CD
+
+on:
+  push:
+    branches: ['main']
+    paths: ['client/**']
+
+jobs:
+    deploy:
+
+        runs-on: ubuntu-latest
