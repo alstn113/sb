@@ -1,5 +1,9 @@
-server stack: spring
-client stack: react
+### Stack
 
-server: https://api.alstn113.pro
-client: https://alstn113.pro
+- server: spring
+- client: react
+
+### Link
+
+- server: https://api.alstn113.pro
+- client: https://alstn113.pro
