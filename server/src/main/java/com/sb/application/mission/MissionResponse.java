@@ -1,4 +1,4 @@
 package com.sb.application.mission;
 
-public record MissionResponse(long id) {
+public record MissionResponse(Long id) {
 }

@@ -1,14 +1,14 @@
-package com.sb.ui;
+package com.sb.api;
 
 import com.sb.application.solution.CommentService;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class CommentController {
+public class CommentApi {
 
     private final CommentService commentService;
 
-    public CommentController(CommentService commentService) {
+    public CommentApi(CommentService commentService) {
         this.commentService = commentService;
     }
 }

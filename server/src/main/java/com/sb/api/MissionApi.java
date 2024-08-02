@@ -1,4 +1,4 @@
-package com.sb.ui;
+package com.sb.api;
 
 import java.net.URI;
 import java.util.List;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class MissionController {
+public class MissionApi {
 
     private final MissionService missionService;
 
-    public MissionController(MissionService missionService) {
+    public MissionApi(MissionService missionService) {
         this.missionService = missionService;
     }
 
@@ -31,7 +31,7 @@ public class MissionController {
     }
 
     @GetMapping("/missions/{id}")
-    public ResponseEntity<MissionResponse> getMission(@PathVariable long id) {
+    public ResponseEntity<MissionResponse> getMission(@PathVariable Long id) {
         MissionResponse response = missionService.getMission(id);
 
         return ResponseEntity.ok(response);
@@ -46,7 +46,7 @@ public class MissionController {
     }
 
     @DeleteMapping("/missions/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable long id) {
+    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         missionService.deletePost(id);
 
         return ResponseEntity.noContent().build();

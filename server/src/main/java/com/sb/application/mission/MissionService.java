@@ -22,7 +22,7 @@ public class MissionService {
         return missionMapper.toResponses(missions);
     }
 
-    public MissionResponse getMission(long id) {
+    public MissionResponse getMission(Long id) {
         Mission mission = missionRepository.getById(id);
 
         return missionMapper.toResponse(mission);
@@ -36,7 +36,7 @@ public class MissionService {
         return missionMapper.toResponse(savedMission);
     }
 
-    public void deletePost(long id) {
+    public void deletePost(Long id) {
         missionRepository.deleteById(id);
     }
 }
