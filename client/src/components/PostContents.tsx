@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import PostAPI from '../api/post';
+import useGetPost from '../hooks/useGetPost';
 
 interface Props {
   id: number;
 }
 
 const PostContents = ({ id }: Props) => {
-  const { data } = useSuspenseQuery({
-    queryKey: ['getPostById', id],
-    queryFn: () => PostAPI.getPostById(id),
-  });
+  const { data } = useGetPost(id);
 
   return <Text>{data.body}</Text>;
 };

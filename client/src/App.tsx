@@ -1,32 +1,39 @@
-import styled from '@emotion/styled';
-import Post from './components/Post';
+import useGetMe from './hooks/useGetMe';
+import {
+  createBrowserRouter,
+  RouteObject,
+  RouterProvider,
+} from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import SettingsPage from './pages/SettingsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => {
-  return (
-    <Container>
-      <h1>테스트 페이지</h1>
-      <Wrapper>
-        {[-1, 1, 2, -2].map((id) => (
-          <Post key={id} id={id} />
-        ))}
-      </Wrapper>
-    </Container>
-  );
+  useGetMe();
+
+  return <RouterProvider router={router} />;
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
+const routes: RouteObject[] = [
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/about',
+    element: <AboutPage />,
+  },
+  {
+    path: '/settings',
+    element: <SettingsPage />,
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
+];
 
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 1rem;
-`;
+const router = createBrowserRouter(routes);
 
 export default App;
