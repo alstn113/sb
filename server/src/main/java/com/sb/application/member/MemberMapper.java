@@ -1,6 +1,6 @@
-package com.sb.application;
+package com.sb.application.member;
 
-import com.sb.domain.Member;
+import com.sb.domain.member.Member;
 import org.springframework.stereotype.Component;
 
 @Component

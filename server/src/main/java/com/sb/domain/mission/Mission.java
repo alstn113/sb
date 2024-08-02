@@ -1,4 +1,4 @@
-package com.sb.domain;
+package com.sb.domain.mission;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Post {
+public class Mission {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,19 +17,19 @@ public class Post {
     private String title;
 
     @Column(nullable = false)
-    private String content;
+    private String description;
 
-    protected Post() {
+    protected Mission() {
     }
 
-    public Post(String title, String content) {
-        this(null, title, content);
+    public Mission(String title, String description) {
+        this(null, title, description);
     }
 
-    public Post(Long id, String title, String content) {
+    public Mission(Long id, String title, String description) {
         this.id = id;
         this.title = title;
-        this.content = content;
+        this.description = description;
     }
 
     public Long getId() {
@@ -40,7 +40,7 @@ public class Post {
         return title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 }

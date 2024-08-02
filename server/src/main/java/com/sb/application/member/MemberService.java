@@ -1,6 +1,6 @@
-package com.sb.application;
+package com.sb.application.member;
 
-import com.sb.domain.MemberRepository;
+import com.sb.domain.member.MemberRepository;
 import org.springframework.stereotype.Service;
 
 @Service

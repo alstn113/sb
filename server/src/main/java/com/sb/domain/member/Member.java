@@ -1,5 +1,6 @@
-package com.sb.domain;
+package com.sb.domain.member;
 
+import com.sb.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

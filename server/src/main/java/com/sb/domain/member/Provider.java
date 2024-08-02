@@ -1,4 +1,4 @@
-package com.sb.domain;
+package com.sb.domain.member;
 
 public enum Provider {
 
