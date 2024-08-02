@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
 import { GITHUB_OAUTH_LOGIN_URL } from '../constants/properties';
 import { Link, useLocation } from 'react-router-dom';
+import useUser from '../hooks/useUser';
+import useLogout from '../hooks/useLogout';
 
 const Navbar = () => {
+  const user = useUser();
+  const logout = useLogout();
   const location = useLocation();
 
   const handleGithubLogin = () => {
@@ -15,7 +19,11 @@ const Navbar = () => {
       <Link to="/about">소개</Link>
       <Link to="/settings">설정</Link>
       <div>
-        <button onClick={handleGithubLogin}>깃허브 로그인</button>
+        {user ? (
+          <button onClick={logout}>로그아웃</button>
+        ) : (
+          <button onClick={handleGithubLogin}>깃허브 로그인</button>
+        )}
       </div>
     </Container>
   );

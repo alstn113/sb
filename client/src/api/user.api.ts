@@ -3,7 +3,7 @@ import apiClient from './apiClient';
 
 export const UserAPI = {
   getMe: async () => {
-    const { data } = await apiClient.get<User>('/member/me');
+    const { data } = await apiClient.get<User>('/members/me');
     return data;
   },
 };
