@@ -4,8 +4,6 @@ import com.sb.application.auth.OAuthUserInfo;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
 import com.sb.domain.member.Provider;
-import com.sb.infra.exception.ExceptionType;
-import com.sb.infra.exception.SbException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -27,8 +25,7 @@ public class MemberService {
     }
 
     public MemberResponse getMemberById(Long id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new SbException(ExceptionType.MEMBER_NOT_FOUND));
+        Member member = memberRepository.getMemberById(id);
 
         return memberMapper.toResponse(member);
     }

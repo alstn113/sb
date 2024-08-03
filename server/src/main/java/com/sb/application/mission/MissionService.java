@@ -28,8 +28,7 @@ public class MissionService {
 
     @Transactional(readOnly = true)
     public MissionResponse getMission(Long id) {
-        Mission mission = missionRepository.findById(id)
-                .orElseThrow(() -> new SbException(ExceptionType.MISSION_NOT_FOUND));
+        Mission mission = missionRepository.getMissionById(id);
 
         return missionMapper.toResponse(mission);
 

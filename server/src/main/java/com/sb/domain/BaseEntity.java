@@ -49,11 +49,11 @@ public abstract class BaseEntity {
             return false;
         }
         BaseEntity that = (BaseEntity) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 }

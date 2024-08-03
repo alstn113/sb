@@ -34,13 +34,10 @@ public class SolutionService {
 
     @Transactional
     public SolutionResponse startSolution(Accessor accessor, StartSolutionRequest request) {
-        Member member = memberRepository.findById(accessor.id())
-                .orElseThrow(() -> new SbException(ExceptionType.MEMBER_NOT_FOUND));
-        Mission mission = missionRepository.findById(request.missionId())
-                .orElseThrow(() -> new SbException(ExceptionType.MISSION_NOT_FOUND));
+        Member member = memberRepository.getMemberById(accessor.id());
+        Mission mission = missionRepository.getMissionById(request.missionId());
 
-        solutionRepository.findByMember_IdAndMission_IdAndSubmittedAtIsNull(accessor.id(), request.missionId())
-                .orElseThrow(() -> new SbException(ExceptionType.SOLUTION_ALREADY_STARTED));
+        validateIsInProgressSolution(member, mission);
 
         Solution solution = Solution.createInitialSolution(mission, member);
         Solution savedSolution = solutionRepository.save(solution);
@@ -48,18 +45,29 @@ public class SolutionService {
         return solutionMapper.toResponse(savedSolution);
     }
 
+    private void validateIsInProgressSolution(Member member, Mission mission) {
+        boolean isInProgressSolutionExists = solutionRepository
+                .existsInProgressSolution(member.getId(), mission.getId());
+        if (isInProgressSolutionExists) {
+            throw new SbException(ExceptionType.SOLUTION_ALREADY_STARTED);
+        }
+    }
+
     @Transactional
     public SolutionResponse submitSolution(Accessor accessor, SubmitSolutionRequest request) {
-        Solution solution = solutionRepository.findById(request.solutionId())
-                .orElseThrow(() -> new SbException(ExceptionType.SOLUTION_NOT_FOUND));
+        Solution solution = solutionRepository.getSolutionById(request.solutionId());
 
-        if (!solution.isOwnedBy(accessor.id())) {
-            throw new SbException(ExceptionType.SOLUTION_NOT_OWNED);
-        }
+        validateSolutionOwnerShip(accessor, solution);
 
         solution.submit(request.title(), request.description(), request.url());
         Solution savedSolution = solutionRepository.save(solution);
 
         return solutionMapper.toResponse(savedSolution);
+    }
+
+    private void validateSolutionOwnerShip(Accessor accessor, Solution solution) {
+        if (!solution.isOwnedBy(accessor.id())) {
+            throw new SbException(ExceptionType.SOLUTION_NOT_OWNED);
+        }
     }
 }
