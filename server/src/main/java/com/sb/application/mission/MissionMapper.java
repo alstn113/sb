@@ -8,7 +8,14 @@ import org.springframework.stereotype.Component;
 public class MissionMapper {
 
     public MissionResponse toResponse(Mission mission) {
-        return new MissionResponse(mission.getId());
+        return new MissionResponse(
+                mission.getId(),
+                mission.getTitle(),
+                mission.getLanguage().name(),
+                mission.getDescription(),
+                mission.getThumbnail(),
+                mission.getUrl()
+        );
     }
 
     public List<MissionResponse> toResponses(List<Mission> missions) {
@@ -20,7 +27,10 @@ public class MissionMapper {
     public Mission toEntity(MissionRequest missionRequest) {
         return new Mission(
                 missionRequest.title(),
-                missionRequest.description()
+                missionRequest.language(),
+                missionRequest.description(),
+                missionRequest.thumbnail(),
+                missionRequest.url()
         );
     }
 }

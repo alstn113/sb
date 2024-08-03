@@ -3,6 +3,8 @@ package com.sb.application.mission;
 import java.util.List;
 import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
+import com.sb.infra.exception.ExceptionType;
+import com.sb.infra.exception.SbException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +25,8 @@ public class MissionService {
     }
 
     public MissionResponse getMission(Long id) {
-        Mission mission = missionRepository.getById(id);
+        Mission mission = missionRepository.findById(id)
+                .orElseThrow(() -> new SbException(ExceptionType.MISSION_NOT_FOUND));
 
         return missionMapper.toResponse(mission);
 

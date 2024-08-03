@@ -24,6 +24,14 @@ public abstract class BaseEntity {
     @Column(nullable = false, updatable = false)
     protected LocalDateTime createdAt;
 
+    protected BaseEntity() {
+        this(null);
+    }
+
+    protected BaseEntity(Long id) {
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }
@@ -41,7 +49,7 @@ public abstract class BaseEntity {
             return false;
         }
         BaseEntity that = (BaseEntity) o;
-        return Objects.equals(getId(), that.getId());
+        return Objects.equals(id, that.id);
     }
 
     @Override
