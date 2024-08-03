@@ -1,18 +1,17 @@
 name: Server CI
 
 on:
-  pull_request:
+  push:
     branches: ['main', 'dev']
     paths: ['server/**']
-    types: [ opened, reopened, synchronize ]
-
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
+
+    defaults:
+      run:
+        working-directory: ./server
 
     steps:
       - uses: actions/checkout@v4
@@ -25,5 +24,8 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
+      - name: Grant execute permission for Gradle Wrapper
+        run: chmod +x gradlew
+
       - name: Build with Gradle Wrapper
-        run: cd server && ./gradlew build
+        run: ./gradlew clean build
