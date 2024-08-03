@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import com.sb.domain.BaseEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.mission.Mission;
+import com.sb.infra.exception.ExceptionType;
+import com.sb.infra.exception.SbException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
@@ -64,7 +66,7 @@ public class Solution extends BaseEntity {
 
     public void submit(String title, String description, String url) {
         if (submittedAt != null) {
-            throw new IllegalStateException("이미 제출한 솔루션입니다.");
+            throw new SbException(ExceptionType.SOLUTION_ALREADY_SUBMITTED);
         }
 
         this.title = title;

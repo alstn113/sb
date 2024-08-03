@@ -61,6 +61,5 @@ public class SolutionService {
         Solution savedSolution = solutionRepository.save(solution);
 
         return solutionMapper.toResponse(savedSolution);
-
     }
 }
