@@ -30,24 +30,24 @@ public class MissionApi {
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/missions/{id}")
-    public ResponseEntity<MissionResponse> getMission(@PathVariable Long id) {
-        MissionResponse response = missionService.getMission(id);
+    @GetMapping("/missions/{missionId}")
+    public ResponseEntity<MissionResponse> getMission(@PathVariable Long missionId) {
+        MissionResponse response = missionService.getMission(missionId);
 
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/missions")
-    public ResponseEntity<MissionResponse> createMission(@Valid @RequestBody MissionRequest missionRequest) {
-        MissionResponse response = missionService.createMission(missionRequest);
+    public ResponseEntity<MissionResponse> createMission(@Valid @RequestBody MissionRequest request) {
+        MissionResponse response = missionService.createMission(request);
 
         URI location = URI.create("/missions/" + response.id());
         return ResponseEntity.created(location).body(response);
     }
 
-    @DeleteMapping("/missions/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
-        missionService.deletePost(id);
+    @DeleteMapping("/missions/{missionId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long missionId) {
+        missionService.deletePost(missionId);
 
         return ResponseEntity.noContent().build();
     }

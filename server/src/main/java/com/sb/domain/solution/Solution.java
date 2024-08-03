@@ -58,6 +58,10 @@ public class Solution extends BaseEntity {
         this.url = url;
     }
 
+    public static Solution createInitialSolution(Mission mission, Member member) {
+        return new Solution(mission, member, null, null, null);
+    }
+
     public void submit(String title, String description, String url) {
         if (submittedAt != null) {
             throw new IllegalStateException("이미 제출한 솔루션입니다.");
@@ -75,6 +79,10 @@ public class Solution extends BaseEntity {
 
     public Member getMember() {
         return member;
+    }
+
+    public boolean isOwnedBy(Long memberId) {
+        return getId().equals(memberId);
     }
 
     public String getTitle() {

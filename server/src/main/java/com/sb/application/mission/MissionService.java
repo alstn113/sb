@@ -6,6 +6,7 @@ import com.sb.domain.mission.MissionRepository;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MissionService {
@@ -18,12 +19,14 @@ public class MissionService {
         this.missionMapper = missionMapper;
     }
 
+    @Transactional(readOnly = true)
     public List<MissionResponse> getMissions() {
         List<Mission> missions = missionRepository.findAll();
 
         return missionMapper.toResponses(missions);
     }
 
+    @Transactional(readOnly = true)
     public MissionResponse getMission(Long id) {
         Mission mission = missionRepository.findById(id)
                 .orElseThrow(() -> new SbException(ExceptionType.MISSION_NOT_FOUND));
@@ -32,6 +35,7 @@ public class MissionService {
 
     }
 
+    @Transactional
     public MissionResponse createMission(MissionRequest missionRequest) {
         Mission mission = missionMapper.toEntity(missionRequest);
         Mission savedMission = missionRepository.save(mission);
@@ -39,6 +43,7 @@ public class MissionService {
         return missionMapper.toResponse(savedMission);
     }
 
+    @Transactional
     public void deletePost(Long id) {
         missionRepository.deleteById(id);
     }
