@@ -39,7 +39,7 @@ public class MissionApi {
             @Auth(required = false) Accessor accessor,
             @PathVariable Long missionId
     ) {
-        MissionResponse response = missionService.getMission(missionId);
+        MissionResponse response = missionService.getMission(accessor, missionId);
 
         return ResponseEntity.ok(response);
     }

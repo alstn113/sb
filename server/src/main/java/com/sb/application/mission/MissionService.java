@@ -1,10 +1,9 @@
 package com.sb.application.mission;
 
 import java.util.List;
+import com.sb.application.auth.Accessor;
 import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
-import com.sb.infra.exception.ExceptionType;
-import com.sb.infra.exception.SbException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +26,12 @@ public class MissionService {
     }
 
     @Transactional(readOnly = true)
-    public MissionResponse getMission(Long id) {
-        Mission mission = missionRepository.getMissionById(id);
+    public MissionResponse getMission(Accessor accessor, Long missionId) {
+        Mission mission = missionRepository.getMissionById(missionId);
+
+        if (accessor.isGuest()) {
+            return missionMapper.toResponse(mission);
+        }
 
         return missionMapper.toResponse(mission);
 
