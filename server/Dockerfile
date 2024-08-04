@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY /build/libs/*.jar /app/app.jar
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar", "--spring.profiles.active=dev"]
