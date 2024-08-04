@@ -1,0 +1,3 @@
+[submodule "sb-secret"]
+	path = sb-secret
+	url = https://github.com/alstn113/sb-secret.git
