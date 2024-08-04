@@ -17,12 +17,6 @@ spring:
     hibernate:
       ddl-auto: create
 
-logging:
-  level:
-    org.springframework.orm.jpa: DEBUG
-    org.springframework.orm.transaction: DEBUG
-    org.hibernate.orm.jdbc.bind: trace
-
 springdoc:
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
