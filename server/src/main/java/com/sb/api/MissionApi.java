@@ -2,6 +2,8 @@ package com.sb.api;
 
 import java.net.URI;
 import java.util.List;
+import com.sb.api.auth.Auth;
+import com.sb.application.auth.Accessor;
 import com.sb.application.mission.MissionRequest;
 import com.sb.application.mission.MissionResponse;
 import com.sb.application.mission.MissionService;
@@ -24,14 +26,19 @@ public class MissionApi {
     }
 
     @GetMapping("/missions")
-    public ResponseEntity<List<MissionResponse>> getMissions() {
+    public ResponseEntity<List<MissionResponse>> getMissions(
+            @Auth(required = false) Accessor accessor
+    ) {
         List<MissionResponse> responses = missionService.getMissions();
 
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/missions/{missionId}")
-    public ResponseEntity<MissionResponse> getMission(@PathVariable Long missionId) {
+    public ResponseEntity<MissionResponse> getMission(
+            @Auth(required = false) Accessor accessor,
+            @PathVariable Long missionId
+    ) {
         MissionResponse response = missionService.getMission(missionId);
 
         return ResponseEntity.ok(response);
