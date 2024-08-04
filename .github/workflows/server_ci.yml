@@ -5,13 +5,17 @@ on:
     branches: ['main', 'dev']
     paths: ['server/**']
 
-defaults:
-  run:
-    working-directory: ./server
-
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./server
+
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
