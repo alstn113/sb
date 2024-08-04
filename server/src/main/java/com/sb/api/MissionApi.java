@@ -29,7 +29,7 @@ public class MissionApi {
     public ResponseEntity<List<MissionResponse>> getMissions(
             @Auth(required = false) Accessor accessor
     ) {
-        List<MissionResponse> responses = missionService.getMissions();
+        List<MissionResponse> responses = missionService.getMissions(accessor);
 
         return ResponseEntity.ok(responses);
     }

@@ -19,8 +19,12 @@ public class MissionService {
     }
 
     @Transactional(readOnly = true)
-    public List<MissionResponse> getMissions() {
+    public List<MissionResponse> getMissions(Accessor accessor) {
         List<Mission> missions = missionRepository.findAll();
+
+        if (accessor.isGuest()) {
+            return missionMapper.toResponses(missions);
+        }
 
         return missionMapper.toResponses(missions);
     }
