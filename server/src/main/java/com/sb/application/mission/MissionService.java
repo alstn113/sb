@@ -22,9 +22,9 @@ public class MissionService {
     public List<MissionResponse> getMissions(Accessor accessor) {
         List<Mission> missions = missionRepository.findAll();
 
-        if (accessor.isGuest()) {
-            return missionMapper.toResponses(missions);
-        }
+//        if (accessor.isGuest()) {
+//            return missionMapper.toResponses(missions);
+//        }
 
         return missionMapper.toResponses(missions);
     }
@@ -33,9 +33,9 @@ public class MissionService {
     public MissionResponse getMission(Accessor accessor, Long missionId) {
         Mission mission = missionRepository.getMissionById(missionId);
 
-        if (accessor.isGuest()) {
-            return missionMapper.toResponse(mission);
-        }
+//        if (accessor.isGuest()) {
+//            return missionMapper.toResponse(mission);
+//        }
 
         return missionMapper.toResponse(mission);
 
