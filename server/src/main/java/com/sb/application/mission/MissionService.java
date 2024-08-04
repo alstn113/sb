@@ -4,6 +4,7 @@ import java.util.List;
 import com.sb.application.auth.Accessor;
 import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
+import com.sb.domain.solution.SolutionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,34 +12,36 @@ import org.springframework.transaction.annotation.Transactional;
 public class MissionService {
 
     private final MissionRepository missionRepository;
+    private final SolutionRepository solutionRepository;
     private final MissionMapper missionMapper;
 
-    public MissionService(MissionRepository missionRepository, MissionMapper missionMapper) {
+    public MissionService(
+            MissionRepository missionRepository,
+            SolutionRepository solutionRepository,
+            MissionMapper missionMapper
+    ) {
         this.missionRepository = missionRepository;
+        this.solutionRepository = solutionRepository;
         this.missionMapper = missionMapper;
     }
 
     @Transactional(readOnly = true)
-    public List<MissionResponse> getMissions(Accessor accessor) {
+    public List<MissionResponse> getMissions() {
         List<Mission> missions = missionRepository.findAll();
-
-//        if (accessor.isGuest()) {
-//            return missionMapper.toResponses(missions);
-//        }
 
         return missionMapper.toResponses(missions);
     }
 
     @Transactional(readOnly = true)
-    public MissionResponse getMission(Accessor accessor, Long missionId) {
+    public MissionWithStatusResponse getMission(Accessor accessor, Long missionId) {
         Mission mission = missionRepository.getMissionById(missionId);
 
-//        if (accessor.isGuest()) {
-//            return missionMapper.toResponse(mission);
-//        }
+        if (accessor.isGuest()) {
+            return missionMapper.toStatusResponse(mission, false);
+        }
 
-        return missionMapper.toResponse(mission);
-
+        boolean missionInProgress = solutionRepository.existsInProgressSolution(accessor.id(), missionId);
+        return missionMapper.toStatusResponse(mission, missionInProgress);
     }
 
     @Transactional

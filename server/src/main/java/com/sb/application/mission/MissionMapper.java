@@ -18,6 +18,18 @@ public class MissionMapper {
         );
     }
 
+    public MissionWithStatusResponse toStatusResponse(Mission mission, boolean inProgress) {
+        return new MissionWithStatusResponse(
+                mission.getId(),
+                mission.getTitle(),
+                mission.getLanguage().name(),
+                mission.getDescription(),
+                mission.getThumbnail(),
+                mission.getUrl(),
+                inProgress
+        );
+    }
+
     public List<MissionResponse> toResponses(List<Mission> missions) {
         return missions.stream()
                 .map(this::toResponse)
