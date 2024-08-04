@@ -1,4 +1,0 @@
-[submodule "server/src/main/resources/sb-secret"]
-    branch = main
-	path = server/src/main/resources/sb-secret
-	url = https://github.com/alstn113/sb-secret.git
