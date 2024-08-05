@@ -1,6 +1,5 @@
 package com.sb.domain.solution;
 
-import java.util.Optional;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import org.springframework.data.jpa.repository.JpaRepository;
