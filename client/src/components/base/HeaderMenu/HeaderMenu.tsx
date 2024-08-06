@@ -2,7 +2,6 @@
 import { useRef } from 'react';
 
 // hooks
-import useUser from '~/hooks/useUser';
 import useDisclosure from '~/hooks/useDisclosure';
 import useOnClickOutside from '~/hooks/useOnClickOutside';
 
@@ -11,6 +10,7 @@ import * as S from './HeaderMenu.styles';
 import { motion } from 'framer-motion';
 import { Avatar } from '~/components/common';
 import CaretDown from '~/components/vectors/CaretDown';
+import useGetMe from '~/hooks/useGetMe';
 
 interface HeaderDropdownProps {
   menuItemList: {
@@ -21,7 +21,7 @@ interface HeaderDropdownProps {
 }
 
 const HeaderDropdown = ({ menuItemList }: HeaderDropdownProps) => {
-  const user = useUser();
+  const { data: user } = useGetMe();
 
   const { isOpen, onClose, onToggle } = useDisclosure();
   const triggerRef = useRef<HTMLDivElement>(null);

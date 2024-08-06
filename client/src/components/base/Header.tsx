@@ -2,13 +2,14 @@ import styled from '@emotion/styled';
 import { zIndexes } from '~/lib/styles';
 import { GITHUB_OAUTH_LOGIN_URL, PAGE_LIST } from '~/constants/properties';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import useUser from '~/hooks/useUser';
 import { Button } from '~/components/common';
 import HeaderDropdown from '~/components/base/HeaderMenu/HeaderMenu';
 import useLogout from '~/hooks/useLogout';
+import useGetMe from '~/hooks/useGetMe';
 
 const Header = () => {
-  const user = useUser();
+  const { data: user } = useGetMe();
+
   const navigate = useNavigate();
   const logout = useLogout();
   const location = useLocation();

@@ -1,4 +1,3 @@
-import useGetMe from './hooks/useGetMe';
 import {
   createBrowserRouter,
   RouteObject,
@@ -11,11 +10,14 @@ import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import MissionDetailPage from './pages/MissionDetailPage';
 import SolutionPage from './pages/SolutionPage';
+import SuspensedErrorBoundary from './components/SuspensedErrorBoundary';
 
 const App = () => {
-  useGetMe();
-
-  return <RouterProvider router={router} />;
+  return (
+    <SuspensedErrorBoundary>
+      <RouterProvider router={router} />
+    </SuspensedErrorBoundary>
+  );
 };
 
 const routes: RouteObject[] = [
