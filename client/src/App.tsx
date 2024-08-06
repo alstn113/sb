@@ -4,10 +4,13 @@ import {
   RouteObject,
   RouterProvider,
 } from 'react-router-dom';
+import { PAGE_LIST } from './constants/properties';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import SettingsPage from './pages/SettingsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import MissionDetailPage from './pages/MissionDetailPage';
+import SolutionPage from './pages/SolutionPage';
 
 const App = () => {
   useGetMe();
@@ -17,16 +20,24 @@ const App = () => {
 
 const routes: RouteObject[] = [
   {
-    path: '/',
+    path: PAGE_LIST.HOME,
     element: <HomePage />,
   },
   {
-    path: '/about',
+    path: PAGE_LIST.ABOUT,
     element: <AboutPage />,
   },
   {
-    path: '/settings',
+    path: PAGE_LIST.SETTINGS,
     element: <SettingsPage />,
+  },
+  {
+    path: PAGE_LIST.MISSION_DETAIL,
+    element: <MissionDetailPage />,
+  },
+  {
+    path: PAGE_LIST.SOLUTION,
+    element: <SolutionPage />,
   },
   {
     path: '*',

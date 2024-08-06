@@ -1,12 +1,11 @@
-import Navbar from '../components/Navbar';
 import styled from '@emotion/styled';
+import BaseLayout from '~/components/layouts/BaseLayout';
 
 const NotFoundPage = () => {
   return (
-    <div>
-      <Navbar />
+    <BaseLayout>
       <Text>404 Not Found</Text>
-    </div>
+    </BaseLayout>
   );
 };
 

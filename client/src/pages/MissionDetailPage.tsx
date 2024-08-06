@@ -1,10 +1,13 @@
 import BaseLayout from '~/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
+import { useParams } from 'react-router-dom';
 
-const SettingsPage = () => {
+const MissionDetailPage = () => {
+  const { missionId } = useParams<{ missionId: string }>();
+
   return (
     <BaseLayout>
-      <Text>Settings</Text>
+      <Text>Mission Id : {missionId}</Text>
     </BaseLayout>
   );
 };
@@ -15,4 +18,4 @@ const Text = styled.div`
   text-align: center;
 `;
 
-export default SettingsPage;
+export default MissionDetailPage;

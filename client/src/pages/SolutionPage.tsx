@@ -1,10 +1,10 @@
 import BaseLayout from '~/components/layouts/BaseLayout';
 import styled from '@emotion/styled';
 
-const SettingsPage = () => {
+const SolutionPage = () => {
   return (
     <BaseLayout>
-      <Text>Settings</Text>
+      <Text>SolutionPage</Text>
     </BaseLayout>
   );
 };
@@ -15,4 +15,4 @@ const Text = styled.div`
   text-align: center;
 `;
 
-export default SettingsPage;
+export default SolutionPage;

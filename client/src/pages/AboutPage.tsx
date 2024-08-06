@@ -1,12 +1,11 @@
-import Navbar from '../components/Navbar';
 import styled from '@emotion/styled';
+import BaseLayout from '~/components/layouts/BaseLayout';
 
 const AboutPage = () => {
   return (
-    <div>
-      <Navbar />
+    <BaseLayout>
       <Text>About</Text>
-    </div>
+    </BaseLayout>
   );
 };
 
