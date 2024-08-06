@@ -7,16 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SolutionRepository extends JpaRepository<Solution, Long> {
 
-    @Query(value = """
+    @Query("""
             SELECT EXISTS(
                 SELECT 1
-                FROM solution
-                WHERE member_id = :memberId
-                  AND mission_id = :missionId
-                  AND submitted_at IS NULL
+                FROM Solution as s
+                WHERE s.member.id = :memberId
+                  AND s.mission.id = :missionId
+                  AND s.submittedAt IS NULL
             )
-            """, nativeQuery = true)
+            """)
     boolean existsInProgressSolution(Long memberId, Long missionId);
+
+
+//    boolean existsByMember_IdAndMission_IdAndSubmittedAtIsNull(Long memberId, Long missionId);
 
     default Solution getSolutionById(Long id) {
         return findById(id)
