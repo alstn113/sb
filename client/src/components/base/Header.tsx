@@ -44,7 +44,7 @@ const Header = () => {
     <Container>
       <LogoLink to="/">Solution Buddy</LogoLink>
       <HeaderItems>
-        {!user ? (
+        {user ? (
           <>
             <Button
               shadow
