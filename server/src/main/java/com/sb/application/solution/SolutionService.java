@@ -55,7 +55,7 @@ public class SolutionService {
 
     private void validateIsInProgressSolution(Member member, Mission mission) {
         boolean isInProgressSolutionExists = solutionRepository
-                .existsInProgressSolution(member.getId(), mission.getId());
+                .existsByMember_IdAndMission_IdAndSubmittedAtIsNull(member.getId(), mission.getId());
         if (isInProgressSolutionExists) {
             throw new SbException(ExceptionType.SOLUTION_ALREADY_STARTED);
         }

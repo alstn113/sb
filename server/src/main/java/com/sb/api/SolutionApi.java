@@ -34,7 +34,6 @@ public class SolutionApi {
         return ResponseEntity.ok().build();
     }
 
-
     @PostMapping("/solutions/start")
     public ResponseEntity<SolutionResponse> startSolution(
             @Auth Accessor accessor,

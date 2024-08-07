@@ -40,7 +40,8 @@ public class MissionService {
             return missionMapper.toStatusResponse(mission, false);
         }
 
-        boolean missionInProgress = solutionRepository.existsInProgressSolution(accessor.id(), missionId);
+        boolean missionInProgress = solutionRepository
+                .existsByMember_IdAndMission_IdAndSubmittedAtIsNull(accessor.id(), missionId);
         return missionMapper.toStatusResponse(mission, missionInProgress);
     }
 
