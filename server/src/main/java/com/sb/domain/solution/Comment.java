@@ -1,17 +1,14 @@
-package com.sb.domain.comment;
+package com.sb.domain.solution;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 import com.sb.domain.BaseEntity;
 import com.sb.domain.member.Member;
-import com.sb.domain.solution.Solution;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
 @Entity
 public class Comment extends BaseEntity {
@@ -30,9 +27,6 @@ public class Comment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Comment parent;
-
-    @OneToMany(mappedBy = "parent")
-    private final List<Comment> replies = new ArrayList<>();
 
     @Column
     private LocalDate deletedAt;
@@ -59,12 +53,8 @@ public class Comment extends BaseEntity {
     public static Comment reply(String content, Solution solution, Member member, Comment parent) {
         Comment reply = new Comment(content, solution, member);
 
-        if (parent.isReply()) {
-            parent = parent.parent;
-        }
-
-        reply.parent = parent;
-        parent.replies.add(reply);
+        Optional<Comment> rootComment = Optional.of(parent.parent);
+        reply.parent = rootComment.orElse(parent);
 
         return reply;
     }
@@ -77,8 +67,12 @@ public class Comment extends BaseEntity {
         return deletedAt != null;
     }
 
-    public boolean isReply() {
-        return parent != null;
+    public boolean isRoot() {
+        return parent == null;
+    }
+
+    public boolean isNotOwnedBy(Long memberId) {
+        return !member.getId().equals(memberId);
     }
 
     public String getContent() {
@@ -97,8 +91,8 @@ public class Comment extends BaseEntity {
         return parent;
     }
 
-    public List<Comment> getReplies() {
-        return replies;
+    public Long getParentId() {
+        return parent.getId();
     }
 
     public LocalDate getDeletedAt() {

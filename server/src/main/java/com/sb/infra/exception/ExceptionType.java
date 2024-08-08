@@ -13,7 +13,9 @@ public enum ExceptionType {
     SOLUTION_ALREADY_STARTED(HttpStatus.BAD_REQUEST, "이미 진행 중인 솔루션이 있습니다."),
     SOLUTION_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 솔루션입니다."),
     SOLUTION_NOT_OWNED(HttpStatus.FORBIDDEN, "본인이 작성한 솔루션이 아닙니다."),
-    SOLUTION_ALREADY_SUBMITTED(HttpStatus.BAD_REQUEST, "이미 제출한 솔루션입니다.");
+    SOLUTION_ALREADY_SUBMITTED(HttpStatus.BAD_REQUEST, "이미 제출한 솔루션입니다."),
+    COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다."),
+    COMMENT_NOT_YOURS(HttpStatus.FORBIDDEN, "본인이 작성한 댓글이 아닙니다.");
 
     private final HttpStatus status;
     private final String message;

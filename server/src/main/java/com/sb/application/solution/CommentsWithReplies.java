@@ -1,0 +1,56 @@
+package com.sb.application.solution;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.sb.domain.solution.Comment;
+
+public class CommentsWithReplies {
+
+    private final List<RootComment> values;
+
+    private CommentsWithReplies(List<RootComment> rootComments) {
+        this.values = rootComments;
+    }
+
+    public static CommentsWithReplies from(List<Comment> comments) {
+        List<Comment> rootComments = comments.stream()
+                .filter(Comment::isRoot)
+                .toList();
+
+        Map<Long, List<Reply>> repliesMap = mapRepliesToRootComments(comments);
+        List<RootComment> commentsWithReplies = attachRepliesToRootComments(rootComments, repliesMap);
+
+        return new CommentsWithReplies(commentsWithReplies);
+    }
+
+    private static List<RootComment> attachRepliesToRootComments(
+            List<Comment> rootComments,
+            Map<Long, List<Reply>> repliesMap
+    ) {
+        return rootComments.stream()
+                .map(it -> {
+                    List<Reply> replies = repliesMap.getOrDefault(it.getId(), List.of());
+                    return RootComment.from(it, replies);
+                })
+                .toList();
+    }
+
+    private static Map<Long, List<Reply>> mapRepliesToRootComments(List<Comment> comments) {
+        Map<Long, List<Reply>> repliesMap = new HashMap<>();
+        comments.stream()
+                .filter(it -> !it.isRoot())
+                .filter(it -> !it.isDeleted())
+                .forEach(it -> {
+                    List<Reply> replies = repliesMap.getOrDefault(it.getParentId(), List.of());
+                    replies.add(Reply.from(it));
+                    repliesMap.put(it.getParentId(), replies);
+                });
+
+        return repliesMap;
+    }
+
+    public List<RootComment> getValues() {
+        return values;
+    }
+}

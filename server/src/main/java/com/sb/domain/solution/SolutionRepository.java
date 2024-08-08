@@ -3,7 +3,6 @@ package com.sb.domain.solution;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 public interface SolutionRepository extends JpaRepository<Solution, Long> {
 

@@ -1,7 +1,7 @@
 package com.sb.support.data;
 
 import java.time.LocalDate;
-import com.sb.domain.comment.Comment;
+import com.sb.domain.solution.Comment;
 import com.sb.domain.member.Member;
 import com.sb.domain.solution.Solution;
 

@@ -1,6 +1,5 @@
 package com.sb.domain.solution;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.sb.domain.BaseEntity;
 import com.sb.domain.member.Member;

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.sb.domain.member.Member;
 import com.sb.domain.mission.Mission;
+import com.sb.domain.solution.Comment;
 import com.sb.domain.solution.Solution;
 import com.sb.support.data.MemberTestData;
 import com.sb.support.data.MissionTestData;
