@@ -47,7 +47,7 @@ public class SolutionService {
 
         validateIsInProgressSolution(member, mission);
 
-        Solution solution = Solution.createInitialSolution(mission, member);
+        Solution solution = Solution.start(mission, member);
         Solution savedSolution = solutionRepository.save(solution);
 
         return solutionMapper.toResponse(savedSolution);

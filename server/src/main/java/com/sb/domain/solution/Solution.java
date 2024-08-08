@@ -1,5 +1,6 @@
 package com.sb.domain.solution;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.sb.domain.BaseEntity;
 import com.sb.domain.member.Member;
@@ -8,15 +9,19 @@ import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Solution extends BaseEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Mission mission;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = false)
     private Member member;
 
     @Column
@@ -39,9 +44,10 @@ public class Solution extends BaseEntity {
             Member member,
             String title,
             String description,
-            String url
+            String url,
+            LocalDateTime submittedAt
     ) {
-        this(null, mission, member, title, description, url);
+        this(null, mission, member, title, description, url, submittedAt);
     }
 
     public Solution(
@@ -50,7 +56,8 @@ public class Solution extends BaseEntity {
             Member member,
             String title,
             String description,
-            String url
+            String url,
+            LocalDateTime submittedAt
     ) {
         this.id = id;
         this.mission = mission;
@@ -58,10 +65,11 @@ public class Solution extends BaseEntity {
         this.title = title;
         this.description = description;
         this.url = url;
+        this.submittedAt = submittedAt;
     }
 
-    public static Solution createInitialSolution(Mission mission, Member member) {
-        return new Solution(mission, member, null, null, null);
+    public static Solution start(Mission mission, Member member) {
+        return new Solution(mission, member, null, null, null, null);
     }
 
     public void submit(String title, String description, String url) {

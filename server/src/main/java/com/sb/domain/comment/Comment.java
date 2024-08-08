@@ -3,7 +3,6 @@ package com.sb.domain.comment;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import com.sb.domain.BaseEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.solution.Solution;
@@ -42,23 +41,32 @@ public class Comment extends BaseEntity {
     }
 
     public Comment(String content, Solution solution, Member member) {
+        this(null, content, solution, member, null, null);
+    }
+
+    public Comment(Long id, String content, Solution solution, Member member, Comment parent, LocalDate deletedAt) {
+        super(id);
         this.content = content;
         this.solution = solution;
         this.member = member;
+        this.parent = parent;
+        this.deletedAt = deletedAt;
     }
 
     /**
      * 댓글은 2단계까지만 지원한다. (대댓글은 1단계까지만 가능), 3단계 이상은 대댓글로 처리한다.
      */
     public static Comment reply(String content, Solution solution, Member member, Comment parent) {
-        Comment comment = new Comment(content, solution, member);
+        Comment reply = new Comment(content, solution, member);
 
-        Optional<Comment> rootComment = Optional.ofNullable(parent.parent);
-        comment.parent = rootComment.orElse(parent);
+        if (parent.isReply()) {
+            parent = parent.parent;
+        }
 
-        parent.replies.add(comment);
+        reply.parent = parent;
+        parent.replies.add(reply);
 
-        return comment;
+        return reply;
     }
 
     public void delete() {
@@ -67,6 +75,10 @@ public class Comment extends BaseEntity {
 
     public boolean isDeleted() {
         return deletedAt != null;
+    }
+
+    public boolean isReply() {
+        return parent != null;
     }
 
     public String getContent() {
