@@ -9,7 +9,7 @@ const HomePage = () => {
     <BaseLayout>
       <Container>
         <Link to="/solutions/1">
-          <Text>Go to Solution Page</Text>
+          <Text>Solution-1로 이동</Text>
         </Link>
         <Wrapper>
           {[-1, 1, 2, -2].map((id) => (
