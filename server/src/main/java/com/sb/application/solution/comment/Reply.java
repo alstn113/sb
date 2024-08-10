@@ -10,7 +10,8 @@ public record Reply(
         Long parentCommentId,
         String content,
         MemberResponse member,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        boolean isDeleted
 ) {
 
     public static Reply from(Comment comment) {
@@ -20,7 +21,8 @@ public record Reply(
                 comment.getParentCommentId(),
                 comment.getContent(),
                 MemberResponse.from(comment.getMember()),
-                comment.getCreatedAt()
+                comment.getCreatedAt(),
+                comment.isDeleted()
         );
     }
 }

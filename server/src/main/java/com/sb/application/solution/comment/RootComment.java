@@ -11,7 +11,8 @@ public record RootComment(
         String content,
         MemberResponse member,
         List<Reply> replies,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        boolean isDeleted
 ) {
 
     public static RootComment from(Comment comment, List<Reply> replies) {
@@ -21,7 +22,8 @@ public record RootComment(
                 comment.getContent(),
                 MemberResponse.from(comment.getMember()),
                 replies,
-                comment.getCreatedAt()
+                comment.getCreatedAt(),
+                comment.isDeleted()
         );
     }
 }
