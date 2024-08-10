@@ -43,6 +43,7 @@ const Title = styled.div`
   font-size: 2rem;
   line-height: 1.5;
   font-weight: 900;
+  white-space: pre-wrap;
   min-height: 3rem;
 `;
 
