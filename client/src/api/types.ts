@@ -61,8 +61,10 @@ export interface ReplyResponse {
 
 export interface CommentResponse {
   id: number;
-  parentCommentId: number | null;
   content: string;
   member: MemberResponse;
   createdAt: string;
+
+  parentCommentId?: number | null;
+  replies?: ReplyResponse[];
 }

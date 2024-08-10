@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App.tsx';
 import GlobalStyles from './GlobalStyles.tsx';
 import { ChakraProvider } from '@chakra-ui/react';
+import ModalProvider from './components/base/ModalProvider.tsx';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <ChakraProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
+        <ModalProvider />
         <GlobalStyles />
         <App />
       </QueryClientProvider>
