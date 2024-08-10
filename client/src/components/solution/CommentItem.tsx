@@ -101,9 +101,13 @@ const CommentItem = ({ comment, solutionId, isSubcomment }: Props) => {
       <CommentBody>
         <p>{comment.content}</p>
       </CommentBody>
-      <CommentFooter>
-        <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
-      </CommentFooter>
+
+      {/* if comment is not subcomment, show reply button */}
+      {!isSubcomment && (
+        <CommentFooter>
+          <ReplyButton onClick={handleOpenReply}>답글</ReplyButton>
+        </CommentFooter>
+      )}
 
       {/* if reply button is clicked, show ReplyComment component */}
       {isReplying && (
