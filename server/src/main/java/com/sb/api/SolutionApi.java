@@ -24,16 +24,6 @@ public class SolutionApi {
         this.solutionService = solutionService;
     }
 
-    @GetMapping("/solutions/me/in-progress")
-    public ResponseEntity<Void> getInProgressSolution(@Auth Accessor accessor) {
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/solutions/me/submitted")
-    public ResponseEntity<Void> getSubmittedSolution(@Auth Accessor accessor) {
-        return ResponseEntity.ok().build();
-    }
-
     @PostMapping("/solutions/start")
     public ResponseEntity<SolutionResponse> startSolution(
             @Auth Accessor accessor,

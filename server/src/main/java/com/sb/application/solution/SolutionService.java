@@ -32,14 +32,6 @@ public class SolutionService {
         this.solutionMapper = solutionMapper;
     }
 
-    @Transactional(readOnly = true)
-    public void getMyInProgressSolution(Accessor accessor) {
-    }
-
-    @Transactional(readOnly = true)
-    public void getMySubmittedSolution(Accessor accessor) {
-    }
-
     @Transactional
     public SolutionResponse startSolution(Accessor accessor, StartSolutionRequest request) {
         Member member = memberRepository.getMemberById(accessor.id());
