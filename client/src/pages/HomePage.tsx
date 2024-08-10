@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import Post from '../components/Post';
 import BaseLayout from '~/components/layouts/BaseLayout';
+import { Link } from 'react-router-dom';
+import { Text } from '@chakra-ui/react';
 
 const HomePage = () => {
   return (
     <BaseLayout>
       <Container>
+        <Link to="/solutions/1">
+          <Text>Go to Solution Page</Text>
+        </Link>
         <Wrapper>
           {[-1, 1, 2, -2].map((id) => (
             <Post key={id} id={id} />
