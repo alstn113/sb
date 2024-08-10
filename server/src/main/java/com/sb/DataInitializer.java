@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-@Profile("local")
+@Profile("dev")
 public class DataInitializer implements ApplicationRunner {
 
     private final MemberRepository memberRepository;
