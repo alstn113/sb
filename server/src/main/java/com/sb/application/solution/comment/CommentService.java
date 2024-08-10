@@ -1,13 +1,15 @@
-package com.sb.application.solution;
+package com.sb.application.solution.comment;
 
 import java.util.List;
-import com.sb.domain.solution.Comment;
-import com.sb.domain.solution.CommentRepository;
+import com.sb.domain.solution.comment.Comment;
+import com.sb.domain.solution.comment.CommentRepository;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CommentService {
 
     private final CommentRepository commentRepository;

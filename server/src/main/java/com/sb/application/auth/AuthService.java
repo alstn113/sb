@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class AuthService {
 
     private final MemberService memberService;
@@ -29,7 +30,6 @@ public class AuthService {
         return githubOAuthProvider.getLoginUrl(next);
     }
 
-    @Transactional
     public String githubOAuthLogin(String code) {
         String accessToken = githubOAuthProvider.getAccessToken(code);
         OAuthUserInfo userInfo = githubOAuthProvider.getUserInfo(accessToken);

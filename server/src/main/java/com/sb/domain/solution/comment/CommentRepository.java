@@ -1,4 +1,4 @@
-package com.sb.domain.solution;
+package com.sb.domain.solution.comment;
 
 import java.util.List;
 import com.sb.infra.exception.ExceptionType;

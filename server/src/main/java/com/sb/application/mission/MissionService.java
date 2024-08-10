@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class MissionService {
 
     private final MissionRepository missionRepository;
@@ -25,14 +26,12 @@ public class MissionService {
         this.missionMapper = missionMapper;
     }
 
-    @Transactional(readOnly = true)
     public List<MissionResponse> getMissions() {
         List<Mission> missions = missionRepository.findAll();
 
         return missionMapper.toResponses(missions);
     }
 
-    @Transactional(readOnly = true)
     public MissionWithStatusResponse getMission(Accessor accessor, Long missionId) {
         Mission mission = missionRepository.getMissionById(missionId);
 
@@ -45,7 +44,6 @@ public class MissionService {
         return missionMapper.toStatusResponse(mission, missionInProgress);
     }
 
-    @Transactional
     public MissionResponse createMission(MissionRequest missionRequest) {
         Mission mission = missionMapper.toEntity(missionRequest);
         Mission savedMission = missionRepository.save(mission);
@@ -53,7 +51,6 @@ public class MissionService {
         return missionMapper.toResponse(savedMission);
     }
 
-    @Transactional
     public void deletePost(Long id) {
         missionRepository.deleteById(id);
     }

@@ -2,7 +2,7 @@ package com.sb.support.data;
 
 import java.time.LocalDateTime;
 import com.sb.domain.member.Member;
-import com.sb.domain.solution.Comment;
+import com.sb.domain.solution.comment.Comment;
 import com.sb.domain.solution.Solution;
 
 public class CommentTestData {

@@ -5,8 +5,10 @@ import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
 import com.sb.domain.member.Provider;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;

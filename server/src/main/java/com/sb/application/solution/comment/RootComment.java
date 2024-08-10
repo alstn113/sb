@@ -1,7 +1,7 @@
-package com.sb.application.solution;
+package com.sb.application.solution.comment;
 
 import java.util.List;
-import com.sb.domain.solution.Comment;
+import com.sb.domain.solution.comment.Comment;
 
 public record RootComment(
         Long id,

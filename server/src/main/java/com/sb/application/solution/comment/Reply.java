@@ -1,6 +1,6 @@
-package com.sb.application.solution;
+package com.sb.application.solution.comment;
 
-import com.sb.domain.solution.Comment;
+import com.sb.domain.solution.comment.Comment;
 
 public record Reply(Long id, String content) {
 

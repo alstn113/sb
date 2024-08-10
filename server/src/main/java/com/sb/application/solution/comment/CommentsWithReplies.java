@@ -1,9 +1,9 @@
-package com.sb.application.solution;
+package com.sb.application.solution.comment;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.sb.domain.solution.Comment;
+import com.sb.domain.solution.comment.Comment;
 
 public class CommentsWithReplies {
 
