@@ -114,7 +114,7 @@ public class DataInitializer implements ApplicationRunner {
                 root1
         ));
         Comment reply1ToRoot2 = commentRepository.save(Comment.reply(
-                "Alice 님, Charlie 님 두 분 다 정말 대단하세요. 저는 아직도 실패가 두려워서 새로운 시도를 망설이는데, 두 분 이야기를 들으니 용기가 생기네요. 실패를 두려워하지 않고 앞으로 나아가야겠다는 생각이 들어요.",
+                "Alice 님, Bob 님 두 분 다 정말 대단하세요. 저는 아직도 실패가 두려워서 새로운 시도를 망설이는데, 두 분 이야기를 들으니 용기가 생기네요. 실패를 두려워하지 않고 앞으로 나아가야겠다는 생각이 들어요.",
                 solution,
                 member3,
                 root1
@@ -122,7 +122,7 @@ public class DataInitializer implements ApplicationRunner {
         Comment reply2ToRoot1 = commentRepository.save(Comment.reply(
                 "Bob 님, 그 마음 충분히 이해해요. 저도 실패가 계속될 때는 자존감이 바닥을 칠 때가 있었어요. 그럴 때 저는 잠시 멈추고, 제가 왜 이 길을 선택했는지 다시 생각해보곤 했어요. 그리고 작은 성취라도 하나씩 쌓아가면서 다시 자신감을 회복하려고 노력했죠.1",
                 solution,
-                member3,
+                member1,
                 root2
         ));
     }
