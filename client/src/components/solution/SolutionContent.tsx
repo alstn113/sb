@@ -41,10 +41,8 @@ const Container = styled.div`
 
 const Title = styled.div`
   font-size: 2rem;
-  line-height: 1.5;
+  line-height: 1.2;
   font-weight: 900;
-  white-space: pre-wrap;
-  min-height: 3rem;
 `;
 
 const Content = styled.div`
