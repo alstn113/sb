@@ -25,18 +25,6 @@ public class CommentsWithReplies {
         return new CommentsWithReplies(commentsWithReplies);
     }
 
-    private static List<RootComment> attachRepliesToRootComments(
-            List<Comment> rootComments,
-            Map<Long, List<Reply>> repliesMap
-    ) {
-        return rootComments.stream()
-                .map(it -> {
-                    List<Reply> replies = repliesMap.getOrDefault(it.getId(), List.of());
-                    return RootComment.from(it, replies);
-                })
-                .toList();
-    }
-
     private static Map<Long, List<Reply>> mapRepliesToRootComments(List<Comment> comments) {
         Map<Long, List<Reply>> repliesMap = new HashMap<>();
         comments.stream()
@@ -49,6 +37,18 @@ public class CommentsWithReplies {
                 });
 
         return repliesMap;
+    }
+
+    private static List<RootComment> attachRepliesToRootComments(
+            List<Comment> rootComments,
+            Map<Long, List<Reply>> repliesMap
+    ) {
+        return rootComments.stream()
+                .map(it -> {
+                    List<Reply> replies = repliesMap.getOrDefault(it.getId(), List.of());
+                    return RootComment.from(it, replies);
+                })
+                .toList();
     }
 
     public List<RootComment> getValues() {

@@ -95,6 +95,10 @@ public class Comment extends CreatedAtAuditableEntity {
         return solution;
     }
 
+    public Long getSolutionId() {
+        return solution.getId();
+    }
+
     public Member getMember() {
         return member;
     }

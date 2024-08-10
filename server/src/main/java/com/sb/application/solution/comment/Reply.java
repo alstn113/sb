@@ -6,6 +6,7 @@ import com.sb.domain.solution.comment.Comment;
 
 public record Reply(
         Long id,
+        Long solutionId,
         Long parentCommentId,
         String content,
         MemberResponse member,
@@ -15,6 +16,7 @@ public record Reply(
     public static Reply from(Comment comment) {
         return new Reply(
                 comment.getId(),
+                comment.getSolutionId(),
                 comment.getParentCommentId(),
                 comment.getContent(),
                 MemberResponse.from(comment.getMember()),
