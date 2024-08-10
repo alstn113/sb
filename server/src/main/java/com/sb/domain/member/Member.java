@@ -1,13 +1,13 @@
 package com.sb.domain.member;
 
-import com.sb.domain.BaseEntity;
+import com.sb.domain.CreatedAtAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member extends CreatedAtAuditableEntity {
 
     @Column
     private String email;
@@ -51,7 +51,7 @@ public class Member extends BaseEntity {
             String displayName,
             String avatarUrl
     ) {
-        this.id = id;
+        super(id);
         this.email = email;
         this.provider = provider;
         this.socialId = socialId;

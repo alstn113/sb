@@ -1,8 +1,8 @@
 package com.sb.support.data;
 
-import java.time.LocalDate;
-import com.sb.domain.solution.Comment;
+import java.time.LocalDateTime;
 import com.sb.domain.member.Member;
+import com.sb.domain.solution.Comment;
 import com.sb.domain.solution.Solution;
 
 public class CommentTestData {
@@ -23,7 +23,7 @@ public class CommentTestData {
         private Solution solution;
         private Member member;
         private Comment parent;
-        private LocalDate deletedAt;
+        private LocalDateTime deletedAt;
 
         public CommentBuilder withId(Long id) {
             this.id = id;
@@ -50,7 +50,7 @@ public class CommentTestData {
             return this;
         }
 
-        public CommentBuilder withDeletedAt(LocalDate deletedAt) {
+        public CommentBuilder withDeletedAt(LocalDateTime deletedAt) {
             this.deletedAt = deletedAt;
             return this;
         }

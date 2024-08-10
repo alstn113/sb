@@ -1,43 +1,32 @@
 package com.sb.domain;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
-import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import org.hibernate.Hibernate;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class BaseEntity {
+public abstract class IdentifiableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    protected LocalDateTime createdAt;
-
-    protected BaseEntity() {
+    protected IdentifiableEntity() {
         this(null);
     }
 
-    protected BaseEntity(Long id) {
+    protected IdentifiableEntity(Long id) {
         this.id = id;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
     }
 
     @Override
@@ -48,7 +37,7 @@ public abstract class BaseEntity {
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
             return false;
         }
-        BaseEntity that = (BaseEntity) o;
+        IdentifiableEntity that = (IdentifiableEntity) o;
         return Objects.equals(getId(), that.getId());
     }
 

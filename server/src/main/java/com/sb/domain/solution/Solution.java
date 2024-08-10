@@ -1,7 +1,8 @@
 package com.sb.domain.solution;
 
 import java.time.LocalDateTime;
-import com.sb.domain.BaseEntity;
+import com.sb.domain.CreatedAtAuditableEntity;
+import com.sb.domain.IdentifiableEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.mission.Mission;
 import com.sb.infra.exception.ExceptionType;
@@ -13,7 +14,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Solution extends BaseEntity {
+public class Solution extends CreatedAtAuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)

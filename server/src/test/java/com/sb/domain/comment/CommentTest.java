@@ -49,6 +49,7 @@ class CommentTest {
     @Test
     @DisplayName("대댓글을 작성한다.")
     void createReply() {
+        // given
         Member member = MemberTestData.defaultMember().build();
         Mission mission = MissionTestData.defaultMission().build();
         Solution solution = SolutionTestData.defaultSolution()
@@ -57,17 +58,17 @@ class CommentTest {
                 .build();
         Comment rootComment = new Comment("content", solution, member);
 
+        // when
         Comment reply = Comment.reply("reply content", solution, member, rootComment);
 
-        assertAll(
-                () -> assertThat(reply.getParent()).isEqualTo(rootComment),
-                () -> assertThat(rootComment.getReplies()).containsExactly(reply)
-        );
+        // then
+        assertThat(reply.getParentComment()).isEqualTo(rootComment);
     }
 
     @Test
     @DisplayName("대대댓글을 작성할 경우 댓글로 작성한다.")
     void createReplyToReply() {
+        // given
         Member member = MemberTestData.defaultMember().build();
         Mission mission = MissionTestData.defaultMission().build();
         Solution solution = SolutionTestData.defaultSolution()
@@ -77,11 +78,13 @@ class CommentTest {
         Comment rootComment = new Comment("content", solution, member);
         Comment reply = Comment.reply("reply content", solution, member, rootComment);
 
+        // when
         Comment replyToReply = Comment.reply("reply to reply content", solution, member, reply);
 
+        // then
         assertAll(
-                () -> assertThat(replyToReply.getParent()).isEqualTo(rootComment),
-                () -> assertThat(rootComment.getReplies()).containsExactly(reply, replyToReply)
+                () -> assertThat(reply.getParentComment()).isEqualTo(rootComment),
+                () -> assertThat(replyToReply.getParentComment()).isEqualTo(rootComment)
         );
     }
 }

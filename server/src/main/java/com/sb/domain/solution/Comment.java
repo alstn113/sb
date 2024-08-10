@@ -1,8 +1,8 @@
 package com.sb.domain.solution;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
-import com.sb.domain.BaseEntity;
+import com.sb.domain.CreatedAtAuditableEntity;
 import com.sb.domain.member.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Comment extends BaseEntity {
+public class Comment extends CreatedAtAuditableEntity {
 
     @Column(nullable = false)
     private String content;
@@ -25,11 +25,11 @@ public class Comment extends BaseEntity {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private Comment parent;
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parentComment;
 
     @Column
-    private LocalDate deletedAt;
+    private LocalDateTime deletedAt;
 
     protected Comment() {
     }
@@ -38,12 +38,19 @@ public class Comment extends BaseEntity {
         this(null, content, solution, member, null, null);
     }
 
-    public Comment(Long id, String content, Solution solution, Member member, Comment parent, LocalDate deletedAt) {
+    public Comment(
+            Long id,
+            String content,
+            Solution solution,
+            Member member,
+            Comment parentComment,
+            LocalDateTime deletedAt
+    ) {
         super(id);
         this.content = content;
         this.solution = solution;
         this.member = member;
-        this.parent = parent;
+        this.parentComment = parentComment;
         this.deletedAt = deletedAt;
     }
 
@@ -53,14 +60,14 @@ public class Comment extends BaseEntity {
     public static Comment reply(String content, Solution solution, Member member, Comment parent) {
         Comment reply = new Comment(content, solution, member);
 
-        Optional<Comment> rootComment = Optional.of(parent.parent);
-        reply.parent = rootComment.orElse(parent);
+        Optional<Comment> rootComment = Optional.ofNullable(parent.parentComment);
+        reply.parentComment = rootComment.orElse(parent);
 
         return reply;
     }
 
     public void delete() {
-        deletedAt = LocalDate.now();
+        deletedAt = LocalDateTime.now();
     }
 
     public boolean isDeleted() {
@@ -68,11 +75,15 @@ public class Comment extends BaseEntity {
     }
 
     public boolean isRoot() {
-        return parent == null;
+        return parentComment == null;
     }
 
     public boolean isNotOwnedBy(Long memberId) {
         return !member.getId().equals(memberId);
+    }
+
+    public Long getParentId() {
+        return parentComment.getId();
     }
 
     public String getContent() {
@@ -87,15 +98,11 @@ public class Comment extends BaseEntity {
         return member;
     }
 
-    public Comment getParent() {
-        return parent;
+    public Comment getParentComment() {
+        return parentComment;
     }
 
-    public Long getParentId() {
-        return parent.getId();
-    }
-
-    public LocalDate getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 }
