@@ -1,5 +1,6 @@
 package com.sb.application.solution;
 
+import java.util.List;
 import com.sb.application.auth.Accessor;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class SolutionService {
 
     private final SolutionRepository solutionRepository;
@@ -29,7 +31,20 @@ public class SolutionService {
         this.memberRepository = memberRepository;
     }
 
-    @Transactional
+    public List<SolutionResponse> getSolutions() {
+        List<Solution> solutions = solutionRepository.findAll();
+
+        return solutions.stream()
+                .map(SolutionResponse::from)
+                .toList();
+    }
+
+    public SolutionResponse getSolutionById(Long solutionId) {
+        Solution solution = solutionRepository.getSolutionById(solutionId);
+
+        return SolutionResponse.from(solution);
+    }
+
     public SolutionResponse startSolution(Accessor accessor, StartSolutionRequest request) {
         Member member = memberRepository.getMemberById(accessor.id());
         Mission mission = missionRepository.getMissionById(request.missionId());
@@ -50,7 +65,6 @@ public class SolutionService {
         }
     }
 
-    @Transactional
     public SolutionResponse submitSolution(Accessor accessor, SubmitSolutionRequest request) {
         Solution solution = solutionRepository.getSolutionById(request.solutionId());
 
