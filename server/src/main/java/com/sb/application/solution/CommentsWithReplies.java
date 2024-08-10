@@ -9,8 +9,8 @@ public class CommentsWithReplies {
 
     private final List<RootComment> values;
 
-    private CommentsWithReplies(List<RootComment> rootComments) {
-        this.values = rootComments;
+    private CommentsWithReplies(List<RootComment> commentsWithReplies) {
+        this.values = commentsWithReplies;
     }
 
     public static CommentsWithReplies from(List<Comment> comments) {
