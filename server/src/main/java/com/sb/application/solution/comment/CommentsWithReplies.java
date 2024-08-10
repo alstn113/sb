@@ -43,9 +43,9 @@ public class CommentsWithReplies {
                 .filter(it -> !it.isRoot())
                 .filter(it -> !it.isDeleted())
                 .forEach(it -> {
-                    List<Reply> replies = repliesMap.getOrDefault(it.getParentId(), new ArrayList<>());
+                    List<Reply> replies = repliesMap.getOrDefault(it.getParentCommentId(), new ArrayList<>());
                     replies.add(Reply.from(it));
-                    repliesMap.put(it.getParentId(), replies);
+                    repliesMap.put(it.getParentCommentId(), replies);
                 });
 
         return repliesMap;

@@ -1,6 +1,7 @@
 package com.sb.application.mission;
 
 import com.sb.domain.mission.Language;
+import com.sb.domain.mission.Mission;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -20,4 +21,14 @@ public record MissionRequest(
         @NotBlank(message = "미션 주소는 필수입니다.")
         String url
 ) {
+
+    public Mission toMission() {
+        return new Mission(
+                title,
+                language,
+                description,
+                thumbnail,
+                url
+        );
+    }
 }

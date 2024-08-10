@@ -1,5 +1,7 @@
 package com.sb.application.mission;
 
+import com.sb.domain.mission.Mission;
+
 public record MissionWithStatusResponse(
         Long id,
         String title,
@@ -9,4 +11,16 @@ public record MissionWithStatusResponse(
         String url,
         boolean inProgress
 ) {
+
+    public static MissionWithStatusResponse from(Mission mission, boolean inProgress) {
+        return new MissionWithStatusResponse(
+                mission.getId(),
+                mission.getTitle(),
+                mission.getLanguage().name(),
+                mission.getDescription(),
+                mission.getThumbnail(),
+                mission.getUrl(),
+                inProgress
+        );
+    }
 }

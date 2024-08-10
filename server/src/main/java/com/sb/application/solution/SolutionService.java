@@ -18,18 +18,15 @@ public class SolutionService {
     private final SolutionRepository solutionRepository;
     private final MissionRepository missionRepository;
     private final MemberRepository memberRepository;
-    private final SolutionMapper solutionMapper;
 
     public SolutionService(
             SolutionRepository solutionRepository,
             MissionRepository missionRepository,
-            MemberRepository memberRepository,
-            SolutionMapper solutionMapper
+            MemberRepository memberRepository
     ) {
         this.solutionRepository = solutionRepository;
         this.missionRepository = missionRepository;
         this.memberRepository = memberRepository;
-        this.solutionMapper = solutionMapper;
     }
 
     @Transactional
@@ -42,7 +39,7 @@ public class SolutionService {
         Solution solution = Solution.start(mission, member);
         Solution savedSolution = solutionRepository.save(solution);
 
-        return solutionMapper.toResponse(savedSolution);
+        return SolutionResponse.from(savedSolution);
     }
 
     private void validateIsInProgressSolution(Member member, Mission mission) {
@@ -62,7 +59,7 @@ public class SolutionService {
         solution.submit(request.title(), request.description(), request.url());
         Solution savedSolution = solutionRepository.save(solution);
 
-        return solutionMapper.toResponse(savedSolution);
+        return SolutionResponse.from(savedSolution);
     }
 
     private void validateSolutionOwnerShip(Accessor accessor, Solution solution) {

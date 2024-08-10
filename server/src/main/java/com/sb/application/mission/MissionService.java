@@ -14,41 +14,40 @@ public class MissionService {
 
     private final MissionRepository missionRepository;
     private final SolutionRepository solutionRepository;
-    private final MissionMapper missionMapper;
 
     public MissionService(
             MissionRepository missionRepository,
-            SolutionRepository solutionRepository,
-            MissionMapper missionMapper
+            SolutionRepository solutionRepository
     ) {
         this.missionRepository = missionRepository;
         this.solutionRepository = solutionRepository;
-        this.missionMapper = missionMapper;
     }
 
     public List<MissionResponse> getMissions() {
         List<Mission> missions = missionRepository.findAll();
 
-        return missionMapper.toResponses(missions);
+        return missions.stream()
+                .map(MissionResponse::from)
+                .toList();
     }
 
     public MissionWithStatusResponse getMission(Accessor accessor, Long missionId) {
         Mission mission = missionRepository.getMissionById(missionId);
 
         if (accessor.isGuest()) {
-            return missionMapper.toStatusResponse(mission, false);
+            return MissionWithStatusResponse.from(mission, false);
         }
 
         boolean missionInProgress = solutionRepository
                 .existsByMember_IdAndMission_IdAndSubmittedAtIsNull(accessor.id(), missionId);
-        return missionMapper.toStatusResponse(mission, missionInProgress);
+        return MissionWithStatusResponse.from(mission, missionInProgress);
     }
 
     public MissionResponse createMission(MissionRequest missionRequest) {
-        Mission mission = missionMapper.toEntity(missionRequest);
+        Mission mission = missionRequest.toMission();
         Mission savedMission = missionRepository.save(mission);
 
-        return missionMapper.toResponse(savedMission);
+        return MissionResponse.from(savedMission);
     }
 
     public void deletePost(Long id) {

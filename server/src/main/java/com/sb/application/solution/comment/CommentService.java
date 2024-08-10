@@ -46,18 +46,30 @@ public class CommentService {
         return CommentsWithReplies.from(comments);
     }
 
-    public Comment addComment(Long solutionId, CommentRequest request, Long memberId) {
+    public CommentResponse addComment(Long solutionId, CommentRequest request, Long memberId) {
         Member member = memberRepository.getMemberById(memberId);
         Solution solution = solutionRepository.getSolutionById(solutionId);
 
         if (request.parentCommentId() == null) {
-            Comment comment = new Comment(request.content(), solution, member);
-            return commentRepository.save(comment);
+            return addRootComment(request, solution, member);
         }
 
+        return addReply(request, solution, member);
+    }
+
+    private CommentResponse addRootComment(CommentRequest request, Solution solution, Member member) {
+        Comment comment = new Comment(request.content(), solution, member);
+        Comment savedComment = commentRepository.save(comment);
+
+        return CommentResponse.from(savedComment);
+    }
+
+    private CommentResponse addReply(CommentRequest request, Solution solution, Member member) {
         Comment parentComment = getComment(request.parentCommentId());
         Comment reply = Comment.reply(request.content(), solution, member, parentComment);
-        return commentRepository.save(reply);
+        Comment savedReply = commentRepository.save(reply);
+
+        return CommentResponse.from(savedReply);
     }
 
     public void deleteComment(Long commentId, Long memberId) {

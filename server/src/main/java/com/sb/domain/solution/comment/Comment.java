@@ -83,7 +83,7 @@ public class Comment extends CreatedAtAuditableEntity {
         return !member.getId().equals(memberId);
     }
 
-    public Long getParentId() {
+    public Long getParentCommentId() {
         return parentComment.getId();
     }
 

@@ -5,10 +5,10 @@ import java.util.List;
 import com.sb.api.auth.Auth;
 import com.sb.application.auth.Accessor;
 import com.sb.application.solution.comment.CommentRequest;
+import com.sb.application.solution.comment.CommentResponse;
 import com.sb.application.solution.comment.CommentService;
 import com.sb.application.solution.comment.CommentsWithReplies;
 import com.sb.application.solution.comment.RootComment;
-import com.sb.domain.solution.comment.Comment;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,15 +35,15 @@ public class SolutionCommentApi {
     }
 
     @PostMapping("/solutions/{solutionId}/comments")
-    public ResponseEntity<Comment> addSolutionComment(
+    public ResponseEntity<CommentResponse> addSolutionComment(
             @PathVariable Long solutionId,
             @Valid @RequestBody CommentRequest request,
             @Auth Accessor accessor
     ) {
-        Comment comment = commentService.addComment(solutionId, request, accessor.id());
+        CommentResponse response = commentService.addComment(solutionId, request, accessor.id());
 
-        URI location = URI.create("/solutions/" + solutionId + "/comments/" + comment.getId());
-        return ResponseEntity.created(location).body(comment);
+        URI location = URI.create("/solutions/" + solutionId + "/comments/" + response.id());
+        return ResponseEntity.created(location).body(response);
     }
 
     @DeleteMapping("/comments/{commentId}")
