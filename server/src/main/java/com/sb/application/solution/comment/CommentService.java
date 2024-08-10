@@ -1,6 +1,10 @@
 package com.sb.application.solution.comment;
 
 import java.util.List;
+import com.sb.domain.member.Member;
+import com.sb.domain.member.MemberRepository;
+import com.sb.domain.solution.Solution;
+import com.sb.domain.solution.SolutionRepository;
 import com.sb.domain.solution.comment.Comment;
 import com.sb.domain.solution.comment.CommentRepository;
 import com.sb.infra.exception.ExceptionType;
@@ -12,9 +16,17 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CommentService {
 
+    private final MemberRepository memberRepository;
+    private final SolutionRepository solutionRepository;
     private final CommentRepository commentRepository;
 
-    public CommentService(CommentRepository commentRepository) {
+    public CommentService(
+            MemberRepository memberRepository,
+            SolutionRepository solutionRepository,
+            CommentRepository commentRepository
+    ) {
+        this.memberRepository = memberRepository;
+        this.solutionRepository = solutionRepository;
         this.commentRepository = commentRepository;
     }
 
@@ -27,10 +39,25 @@ public class CommentService {
         return comment;
     }
 
-    public CommentsWithReplies getComments(Long solutionId) {
-        List<Comment> comments = commentRepository.findAllBySolution_Id(solutionId);
+    public CommentsWithReplies getCommentsWithReplies(Long solutionId) {
+        Solution solution = solutionRepository.getSolutionById(solutionId);
+        List<Comment> comments = commentRepository.findAllBySolution_IdOrderByCreatedAtAsc(solution.getId());
 
         return CommentsWithReplies.from(comments);
+    }
+
+    public Comment addComment(Long solutionId, CommentRequest request, Long memberId) {
+        Member member = memberRepository.getMemberById(memberId);
+        Solution solution = solutionRepository.getSolutionById(solutionId);
+
+        if (request.parentCommentId() == null) {
+            Comment comment = new Comment(request.content(), solution, member);
+            return commentRepository.save(comment);
+        }
+
+        Comment parentComment = getComment(request.parentCommentId());
+        Comment reply = Comment.reply(request.content(), solution, member, parentComment);
+        return commentRepository.save(reply);
     }
 
     public void deleteComment(Long commentId, Long memberId) {

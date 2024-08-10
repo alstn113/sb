@@ -1,5 +1,6 @@
 package com.sb.application.solution.comment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class CommentsWithReplies {
                 .filter(it -> !it.isRoot())
                 .filter(it -> !it.isDeleted())
                 .forEach(it -> {
-                    List<Reply> replies = repliesMap.getOrDefault(it.getParentId(), List.of());
+                    List<Reply> replies = repliesMap.getOrDefault(it.getParentId(), new ArrayList<>());
                     replies.add(Reply.from(it));
                     repliesMap.put(it.getParentId(), replies);
                 });

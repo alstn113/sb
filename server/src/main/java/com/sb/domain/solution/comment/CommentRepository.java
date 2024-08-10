@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findAllBySolution_Id(Long solutionId);
+    List<Comment> findAllBySolution_IdOrderByCreatedAtAsc(Long solutionId);
 
     default Comment getCommentById(Long id) {
         return findById(id)

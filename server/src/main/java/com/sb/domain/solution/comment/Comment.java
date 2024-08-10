@@ -58,11 +58,11 @@ public class Comment extends CreatedAtAuditableEntity {
     /**
      * 댓글은 2단계까지만 지원한다. (대댓글은 1단계까지만 가능), 3단계 이상은 대댓글로 처리한다.
      */
-    public static Comment reply(String content, Solution solution, Member member, Comment parent) {
+    public static Comment reply(String content, Solution solution, Member member, Comment parentComment) {
         Comment reply = new Comment(content, solution, member);
 
-        Optional<Comment> rootComment = Optional.ofNullable(parent.parentComment);
-        reply.parentComment = rootComment.orElse(parent);
+        Optional<Comment> rootComment = Optional.ofNullable(parentComment.parentComment);
+        reply.parentComment = rootComment.orElse(parentComment);
 
         return reply;
     }
