@@ -69,17 +69,17 @@ const CommentItem = ({ comment, solutionId, isSubcomment }: Props) => {
     },
   ];
 
-  // if comment is deleted
-  // if (isDeleted) {
-  //   return (
-  //     <Container>
-  //       <DeletedText>삭제된 댓글입니다.</DeletedText>
-  //       {!isSubcomment && comment.subcomments && (
-  //         <SubCommentList subcomments={comment.subcomments} />
-  //       )}
-  //     </Container>
-  //   );
-  // }
+  // if comment is deleted (show when comment is root comment and have replies)
+  if (comment.isDeleted) {
+    return (
+      <Container>
+        <DeletedText>삭제된 댓글입니다.</DeletedText>
+        {!isSubcomment && comment.replies && (
+          <SubCommentList replies={comment.replies} solutionId={solutionId} />
+        )}
+      </Container>
+    );
+  }
 
   // normal comment
   return (
@@ -180,6 +180,10 @@ const Time = styled.div`
 const ReplyButton = styled.button`
   padding: 0;
   font-size: 0.9rem;
+  color: #999;
+`;
+
+const DeletedText = styled.div`
   color: #999;
 `;
 

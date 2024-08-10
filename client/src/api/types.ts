@@ -49,6 +49,7 @@ export interface RootCommentResponse {
   member: MemberResponse;
   replies: ReplyResponse[];
   createdAt: string;
+  isDeleted: boolean;
 }
 
 export interface ReplyResponse {
@@ -57,6 +58,7 @@ export interface ReplyResponse {
   content: string;
   member: MemberResponse;
   createdAt: string;
+  isDeleted: boolean;
 }
 
 export interface CommentResponse {
@@ -64,6 +66,7 @@ export interface CommentResponse {
   content: string;
   member: MemberResponse;
   createdAt: string;
+  isDeleted: boolean;
 
   parentCommentId?: number | null;
   replies?: ReplyResponse[];
