@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { SVGProps } from 'react';
 const SvgPencil = (props: SVGProps<SVGSVGElement>) => (
   <svg
