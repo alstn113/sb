@@ -2,14 +2,16 @@ import styled from '@emotion/styled';
 import Post from '../components/Post';
 import BaseLayout from '~/components/layouts/BaseLayout';
 import { Link } from 'react-router-dom';
-import { Text } from '@chakra-ui/react';
+import { Button } from '~/components/common';
 
 const HomePage = () => {
   return (
     <BaseLayout>
       <Container>
         <Link to="/solutions/1">
-          <Text>Solution-1로 이동</Text>
+          <Button shadow color="secondary">
+            Go to Solution Page
+          </Button>
         </Link>
         <Wrapper>
           {[-1, 1, 2, -2].map((id) => (
@@ -35,6 +37,7 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 1rem;
+  margin-top: 1rem;
 `;
 
 export default HomePage;

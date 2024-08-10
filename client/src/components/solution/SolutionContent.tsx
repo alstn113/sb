@@ -14,8 +14,9 @@ const SolutionContent = ({ solutionId }: SolutionContentProps) => {
 
   return (
     <Container>
+      <Thumbnail src={solution.mission.thumbnail} alt="thumbnail" />
       <Title>{solution.title}</Title>
-      <Content>content: {solution.description}</Content>
+      <Content>{solution.description}</Content>
       <Group>
         <Author>
           by <b>{solution?.member.username}</b> · {submittedDate}
@@ -66,6 +67,15 @@ const Group = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+`;
+
+const Thumbnail = styled.img`
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
 `;
 
 export default SolutionContent;

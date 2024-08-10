@@ -2,7 +2,6 @@ package com.sb.domain.solution;
 
 import java.time.LocalDateTime;
 import com.sb.domain.CreatedAtAuditableEntity;
-import com.sb.domain.IdentifiableEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.mission.Mission;
 import com.sb.infra.exception.ExceptionType;
@@ -27,7 +26,7 @@ public class Solution extends CreatedAtAuditableEntity {
     @Column
     private String title;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column
