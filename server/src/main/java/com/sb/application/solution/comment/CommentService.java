@@ -61,7 +61,7 @@ public class CommentService {
         Comment comment = new Comment(request.content(), solution, member);
         Comment savedComment = commentRepository.save(comment);
 
-        return CommentResponse.from(savedComment);
+        return CommentResponse.rootComment(savedComment);
     }
 
     private CommentResponse addReply(CommentRequest request, Solution solution, Member member) {
@@ -69,7 +69,7 @@ public class CommentService {
         Comment reply = Comment.reply(request.content(), solution, member, parentComment);
         Comment savedReply = commentRepository.save(reply);
 
-        return CommentResponse.from(savedReply);
+        return CommentResponse.reply(savedReply);
     }
 
     public void deleteComment(Long commentId, Long memberId) {

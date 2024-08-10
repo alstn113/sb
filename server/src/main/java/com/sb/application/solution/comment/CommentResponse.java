@@ -12,7 +12,17 @@ public record CommentResponse(
         LocalDateTime createdAt
 ) {
 
-    public static CommentResponse from(Comment comment) {
+    public static CommentResponse rootComment(Comment comment) {
+        return new CommentResponse(
+                comment.getId(),
+                null,
+                comment.getContent(),
+                MemberResponse.from(comment.getMember()),
+                comment.getCreatedAt()
+        );
+    }
+
+    public static CommentResponse reply(Comment comment) {
         return new CommentResponse(
                 comment.getId(),
                 comment.getParentCommentId(),
