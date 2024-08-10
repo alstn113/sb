@@ -43,7 +43,7 @@ const Header = () => {
 
   return (
     <Container>
-      <LogoLink to="/">Solution Buddy</LogoLink>
+      <LogoLink to="/">SB</LogoLink>
       <HeaderItems>
         {user ? (
           <HeaderDropdown menuItemList={menuItemList} />
