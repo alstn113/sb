@@ -1,5 +1,18 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import PostAPI from '../api/post.api';
+import axios from 'axios';
+
+const PostAPI = {
+  getPostById: async (id: number) => {
+    const { data } = await axios.get<{
+      userId: number;
+      id: number;
+      title: string;
+      body: string;
+    }>(`https://jsonplaceholder.typicode.com/posts/${id}`);
+
+    return data;
+  },
+};
 
 const useGetPost = (postId: number) => {
   return useSuspenseQuery({

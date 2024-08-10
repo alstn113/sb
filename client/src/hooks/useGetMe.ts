@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { UserAPI } from '../api/user.api';
+import { MemberAPI } from '~/api';
 
 const useGetMe = () => {
   return useQuery({
@@ -9,7 +9,7 @@ const useGetMe = () => {
 };
 
 const getKey = () => ['useGetMe'];
-const fetcher = () => async () => await UserAPI.getMe();
+const fetcher = () => async () => await MemberAPI.getMe();
 
 useGetMe.getkey = getKey;
 useGetMe.fetcher = fetcher;

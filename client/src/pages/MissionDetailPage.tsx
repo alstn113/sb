@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 import { useParams } from 'react-router-dom';
 
 const MissionDetailPage = () => {
-  const { missionId } = useParams<{ missionId: string }>();
+  const params = useParams<{ missionId: string }>();
+  const missionId = Number(params.missionId);
 
   return (
     <BaseLayout>

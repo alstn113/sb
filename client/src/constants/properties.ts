@@ -9,6 +9,6 @@ export const PAGE_LIST = {
   HOME: '/',
   ABOUT: '/about',
   MISSION_DETAIL: '/missions/:missionId',
-  SOLUTION: '/solutions',
+  SOLUTION: '/solutions/:solutionId',
   SETTINGS: '/settings',
 };
