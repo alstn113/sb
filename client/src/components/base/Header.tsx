@@ -46,16 +46,7 @@ const Header = () => {
       <LogoLink to="/">Solution Buddy</LogoLink>
       <HeaderItems>
         {user ? (
-          <>
-            <Button
-              shadow
-              size="sm"
-              onClick={() => navigate(`${PAGE_LIST.SOLUTION}`)}
-            >
-              Solution
-            </Button>
-            <HeaderDropdown menuItemList={menuItemList} />
-          </>
+          <HeaderDropdown menuItemList={menuItemList} />
         ) : (
           <Button shadow color="primary" size="sm" onClick={handleGithubLogin}>
             Login

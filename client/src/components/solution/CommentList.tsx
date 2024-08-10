@@ -9,22 +9,22 @@ interface CommentListProps {
 }
 
 const CommentList = ({ solutionId }: CommentListProps) => {
-  const { data: comments } = useGetComments(solutionId);
+  const { data: rootComments } = useGetComments(solutionId);
   const commentListRef = useRef<HTMLDivElement>(null);
 
   return (
     <Container ref={commentListRef}>
       <CommentInput
         solutionId={solutionId}
-        commentsCount={comments.length}
+        commentsCount={rootComments.length}
         commentListRef={commentListRef}
       />
-      {comments.map((comment) => {
+      {rootComments.map((rootComment) => {
         return (
           <CommentItem
-            key={comment.id}
+            key={rootComment.id}
             solutionId={solutionId}
-            comment={comment}
+            comment={rootComment}
           />
         );
       })}
