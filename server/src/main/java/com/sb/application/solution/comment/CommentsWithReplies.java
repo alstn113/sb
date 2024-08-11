@@ -31,9 +31,9 @@ public class CommentsWithReplies {
                 .filter(it -> !it.isRoot())
                 .filter(it -> !it.isDeleted())
                 .forEach(it -> {
-                    List<Reply> replies = repliesMap.getOrDefault(it.getParentCommentId(), new ArrayList<>());
-                    replies.add(Reply.from(it));
-                    repliesMap.put(it.getParentCommentId(), replies);
+                    Long parentCommentId = it.getParentCommentId();
+                    repliesMap.computeIfAbsent(parentCommentId, k -> new ArrayList<>())
+                            .add(Reply.from(it));
                 });
 
         return repliesMap;
