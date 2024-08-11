@@ -9,10 +9,15 @@ import com.sb.infra.exception.SbException;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(indexes = {
+        @Index(name = "idx_solution_mission_id", columnList = "mission_id"),
+})
 public class Solution extends CreatedAtAuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
