@@ -6,7 +6,8 @@ on:
     branches: [ 'main', 'dev' ]
     paths: [ 'server/**' ]
 
-
+env:
+  DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}:${{ github.sha }}
 
 jobs:
   build:
@@ -19,9 +20,6 @@ jobs:
 
     permissions:
       contents: read
-
-    env:
-      DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}:${{ github.sha }}
 
     steps:
       - name: Checkout code
@@ -69,9 +67,6 @@ jobs:
       run:
         working-directory: server
 
-    env:
-      DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}:${{ github.sha }}
-
     steps:
       # compose.yml 파일을 사용하기 위해 코드를 체크아웃
       - name: Checkout code
@@ -79,12 +74,12 @@ jobs:
 
       # 컨테이너를 종료하지 않아도 종료 후 실행됨 (추정)
       - name: Docker run
-        run: sudo docker compose -f compose.yml up -d
+        run: docker compose -f compose.yml up -d
 
       # 모든 사용되지 않는 이미지 삭제
       - name: Docker remove unused images
-        run: sudo docker image prune -af
+        run: docker image prune -af
 
       # 모든 컨테이너 리스트 출력 (디버깅용)
       - name: Docker container list
-        run: sudo docker container ps -a
+        run: docker container ps -a
