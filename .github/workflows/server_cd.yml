@@ -11,12 +11,12 @@ env:
 
 jobs:
   build:
+    name: Build Jar and Docker Image
     runs-on: ubuntu-latest
 
     defaults:
       run:
-        shell: bash
-        working-directory: ./server
+        working-directory: server
 
     permissions:
       contents: read
@@ -41,7 +41,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle Wrapper
-        run: ./gradlew clean build
+        run: ./gradlew clean bootJar
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -58,24 +58,27 @@ jobs:
           tags: ${{ env.DOCKERHUB_IMAGE }}
 
   deploy:
+    name: Deploy with Docker
     needs: build
-    runs-on: self-hosted
+    runs-on: [ self-hosted ]
+    timeout-minutes: 5
     defaults:
       run:
-        working-directory: ./server
-    timeout-minutes: 5
+        working-directory: server
+
     steps:
       # compose.yml 파일을 사용하기 위해 코드를 체크아웃
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Docker pull
-        run: sudo docker pull ${{ env.DOCKERHUB_IMAGE }}
+
       # 컨테이너를 종료하지 않아도 종료 후 실행됨 (추정)
       - name: Docker run
-        run: sudo docker compose -f compose.yml up -d
+        run: sudo DOCKERHUB_IMAGE=${{ env.DOCKERHUB_IMAGE }} docker compose -f compose.yml up -d
+
       # 모든 사용되지 않는 이미지 삭제
       - name: Docker remove unused images
         run: sudo docker image prune -af
+
       # 모든 컨테이너 리스트 출력 (디버깅용)
       - name: Docker container list
         run: sudo docker container ps -a

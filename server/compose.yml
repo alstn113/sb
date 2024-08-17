@@ -1,10 +1,10 @@
 services:
-  app:
+  application:
     image: ${DOCKERHUB_IMAGE}
-    container_name: sb-server
     environment:
-        - SPRING_PROFILES_ACTIVE=dev
-        - TZ=Asia/Seoul
+        SPRING_PROFILES_ACTIVE: dev
+        TZ: Asia/Seoul
     ports:
       - "8080:8080"
     restart: always
+    container_name: sb-server

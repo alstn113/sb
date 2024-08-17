@@ -11,8 +11,7 @@ jobs:
 
     defaults:
       run:
-        shell: bash
-        working-directory: ./server
+        working-directory: server
 
     permissions:
       contents: read
