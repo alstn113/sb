@@ -1,6 +1,6 @@
 services:
   application:
-    image: ${DOCKERHUB_REPO}
+    image: ${DOCKERHUB_IMAGE}
     environment:
         SPRING_PROFILES_ACTIVE: dev
         TZ: Asia/Seoul

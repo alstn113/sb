@@ -7,7 +7,7 @@ on:
     paths: [ 'server/**' ]
 
 env:
-  DOCKERHUB_REPO: ${{ secrets.DOCKERHUB_REPO }}:${{ github.sha }}
+  DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}:${{ github.sha }}
 
 jobs:
   build:
@@ -55,7 +55,7 @@ jobs:
           context: ./server
           platforms: linux/amd64
           push: true
-          tags: ${{ env.DOCKERHUB_REPO }}
+          tags: ${{ env.DOCKERHUB_IMAGE }}
 
   deploy:
     name: Deploy with Docker
@@ -73,7 +73,7 @@ jobs:
 
       # 컨테이너를 종료하지 않아도 종료 후 실행됨 (추정)
       - name: Docker run
-        run: sudo docker compose -f compose.yml up -d
+        run: sudo DOCKERHUB_IMAGE=${{ env.DOCKERHUB_IMAGE }} docker compose -f compose.yml up -d
 
       # 모든 사용되지 않는 이미지 삭제
       - name: Docker remove unused images
