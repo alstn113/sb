@@ -1,4 +1,4 @@
-package com.sb.infra.config;
+package com.sb.infra.web;
 
 import java.util.List;
 import com.sb.api.auth.AuthArgumentResolver;

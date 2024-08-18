@@ -1,4 +1,4 @@
-package com.sb.domain;
+package com.sb.infra.persistence;
 
 
 import java.time.LocalDateTime;
@@ -25,5 +25,12 @@ public abstract class CreatedAtAuditableEntity extends IdentifiableEntity {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public String toString() {
+        return "CreatedAtAuditableEntity{" +
+               "createdAt=" + createdAt +
+               '}' + super.toString();
     }
 }

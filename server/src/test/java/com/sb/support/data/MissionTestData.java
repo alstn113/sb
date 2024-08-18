@@ -1,7 +1,9 @@
 package com.sb.support.data;
 
+import java.util.List;
 import com.sb.domain.mission.Language;
 import com.sb.domain.mission.Mission;
+import com.sb.domain.mission.Tag;
 
 public class MissionTestData {
 
@@ -11,7 +13,8 @@ public class MissionTestData {
                 .withLanguage(Language.JAVA)
                 .withDescription("description")
                 .withThumbnail("https://thumbnail.com")
-                .withUrl("https://url.com");
+                .withUrl("https://url.com")
+                .withTags(List.of());
     }
 
     public static class MissionBuilder {
@@ -22,6 +25,7 @@ public class MissionTestData {
         private String description;
         private String thumbnail;
         private String url;
+        private List<Tag> tags;
 
         public MissionBuilder withId(Long id) {
             this.id = id;
@@ -53,8 +57,14 @@ public class MissionTestData {
             return this;
         }
 
+        public MissionBuilder withTags(List<Tag> tags) {
+            this.tags = tags;
+            return this;
+        }
+
+
         public Mission build() {
-            return new Mission(id, title, language, description, thumbnail, url);
+            return new Mission(id, title, language, description, thumbnail, url, tags);
         }
     }
 }

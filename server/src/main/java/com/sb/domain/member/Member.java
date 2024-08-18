@@ -1,6 +1,6 @@
 package com.sb.domain.member;
 
-import com.sb.domain.CreatedAtAuditableEntity;
+import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

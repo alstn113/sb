@@ -1,4 +1,4 @@
-package com.sb.infra.config;
+package com.sb.infra.web;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;

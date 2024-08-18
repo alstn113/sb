@@ -1,5 +1,6 @@
 package com.sb.application.mission;
 
+import java.util.List;
 import com.sb.domain.mission.Language;
 import com.sb.domain.mission.Mission;
 import jakarta.validation.constraints.NotBlank;
@@ -28,7 +29,8 @@ public record MissionRequest(
                 language,
                 description,
                 thumbnail,
-                url
+                url,
+                List.of()
         );
     }
 }

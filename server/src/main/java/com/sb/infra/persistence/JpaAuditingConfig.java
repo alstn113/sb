@@ -1,4 +1,4 @@
-package com.sb.infra.config;
+package com.sb.infra.persistence;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

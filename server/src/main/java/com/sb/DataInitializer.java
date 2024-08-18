@@ -1,6 +1,7 @@
 package com.sb;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
 import com.sb.domain.member.Provider;
@@ -77,7 +78,8 @@ public class DataInitializer implements ApplicationRunner {
                 Language.JAVA,
                 "description",
                 "https://i.pinimg.com/736x/a0/cb/f1/a0cbf19c00e37316ae5c5f69b2d69020.jpg",
-                "https://url.com"
+                "https://url.com",
+                List.of()
         ));
 
         Solution solution = solutionRepository.save(new Solution(

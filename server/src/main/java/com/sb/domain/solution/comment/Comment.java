@@ -2,7 +2,7 @@ package com.sb.domain.solution.comment;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import com.sb.domain.CreatedAtAuditableEntity;
+import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.solution.Solution;
 import jakarta.persistence.Column;
