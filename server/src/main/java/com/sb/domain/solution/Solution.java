@@ -15,9 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_solution_mission_id", columnList = "mission_id"),
-})
 public class Solution extends CreatedAtAuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
