@@ -1,14 +1,16 @@
 package com.sb.infra.auth.oauth.github;
 
 
-import com.sb.application.auth.OAuthUserInfo;
+import com.sb.application.auth.oauth.OAuthStrategy;
+import com.sb.application.auth.oauth.OAuthMemberDetails;
+import com.sb.domain.member.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 @RequiredArgsConstructor
-public class GithubOAuthProvider {
+public class GithubOAuthStrategy implements OAuthStrategy {
 
     private final GithubOAuthClient githubOAuthClient;
     private final GithubOAuthProperties properties;
@@ -33,7 +35,7 @@ public class GithubOAuthProvider {
         return response.accessToken();
     }
 
-    public OAuthUserInfo getUserInfo(String accessToken) {
+    public OAuthMemberDetails getUserInfo(String accessToken) {
         GithubUserInfo githubUserInfo = githubOAuthClient.getUserInfo(accessToken);
 
         return githubUserInfo.toOAuthUserInfo();
@@ -44,5 +46,9 @@ public class GithubOAuthProvider {
                 .path(next)
                 .build()
                 .toUriString();
+    }
+
+    public OAuthProvider getProviderType() {
+        return OAuthProvider.GITHUB;
     }
 }

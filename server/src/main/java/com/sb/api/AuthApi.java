@@ -2,7 +2,7 @@ package com.sb.api;
 
 import java.io.IOException;
 import com.sb.api.common.CookieUtils;
-import com.sb.application.auth.AuthService;
+import com.sb.application.auth.oauth.OAuthService;
 import com.sb.domain.member.OAuthProvider;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthApi {
 
-    private final AuthService authService;
+    private final OAuthService oauthService;
 
     @GetMapping("/auth/social/redirect/{provider}")
     public void githubRedirect(
@@ -25,7 +25,7 @@ public class AuthApi {
             @RequestParam(value = "next", defaultValue = "/") String next,
             HttpServletResponse response
     ) throws IOException {
-        String redirectUri = authService.getGithubOAuthLoginUrl(next);
+        String redirectUri = oauthService.getOAuthLoginUrl(provider, next);
         response.sendRedirect(redirectUri);
     }
 
@@ -36,11 +36,11 @@ public class AuthApi {
             @RequestParam(value = "next", defaultValue = "/") String next,
             HttpServletResponse response
     ) throws IOException {
-        String token = authService.githubOAuthLogin(code);
+        String token = oauthService.oauthLogin(provider, code);
 
         CookieUtils.setTokenCookie(response, token);
 
-        String redirectUri = authService.getClientRedirectUri(next);
+        String redirectUri = oauthService.getClientRedirectUri(provider, next);
         response.sendRedirect(redirectUri);
     }
 

@@ -26,7 +26,7 @@ public class Member extends CreatedAtAuditableEntity {
     @Column(nullable = false)
     private String username;
 
-    @Column(nullable = false)
+    @Column
     private String displayName;
 
     @Column(nullable = false)
