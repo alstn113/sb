@@ -2,14 +2,14 @@ package com.sb.support.data;
 
 
 import com.sb.domain.member.Member;
-import com.sb.domain.member.Provider;
+import com.sb.domain.member.OAuthProvider;
 
 public class MemberTestData {
 
     public static MemberBuilder defaultMember() {
         return new MemberBuilder()
                 .withEmail("alstn113@gmail.com")
-                .withProvider(Provider.GITHUB)
+                .withProvider(OAuthProvider.GITHUB)
                 .withSocialId(1234567890L)
                 .withUsername("alstn113")
                 .withDisplayName("Minsu Kim")
@@ -20,7 +20,7 @@ public class MemberTestData {
 
         private Long id;
         private String email;
-        private Provider provider;
+        private OAuthProvider provider;
         private Long socialId;
         private String username;
         private String displayName;
@@ -36,7 +36,7 @@ public class MemberTestData {
             return this;
         }
 
-        public MemberBuilder withProvider(Provider provider) {
+        public MemberBuilder withProvider(OAuthProvider provider) {
             this.provider = provider;
             return this;
         }

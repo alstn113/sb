@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
-import com.sb.domain.member.Provider;
+import com.sb.domain.member.OAuthProvider;
 import com.sb.domain.mission.Language;
 import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
@@ -38,7 +38,7 @@ public class DataInitializer implements ApplicationRunner {
     public void initData() {
         Member member1 = memberRepository.save(new Member(
                 "alice@gmail.com",
-                Provider.GITHUB,
+                OAuthProvider.GITHUB,
                 111111L,
                 "Alice",
                 "Alice",
@@ -47,7 +47,7 @@ public class DataInitializer implements ApplicationRunner {
 
         Member member2 = memberRepository.save(new Member(
                 "bob@gmail.com",
-                Provider.GITHUB,
+                OAuthProvider.GITHUB,
                 222222L,
                 "Bob",
                 "Bob",
@@ -56,7 +56,7 @@ public class DataInitializer implements ApplicationRunner {
 
         Member member3 = memberRepository.save(new Member(
                 "charlie@gmail.com",
-                Provider.GITHUB,
+                OAuthProvider.GITHUB,
                 333333L,
                 "Charlie",
                 "Charlie",

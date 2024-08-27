@@ -3,7 +3,7 @@ package com.sb.application.auth;
 
 import com.sb.application.member.MemberResponse;
 import com.sb.application.member.MemberService;
-import com.sb.domain.member.Provider;
+import com.sb.domain.member.OAuthProvider;
 import com.sb.infra.auth.oauth.github.GithubOAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class AuthService {
         String accessToken = githubOAuthProvider.getAccessToken(code);
         OAuthUserInfo userInfo = githubOAuthProvider.getUserInfo(accessToken);
 
-        MemberResponse memberResponse = memberService.findOrCreateMember(userInfo, Provider.GITHUB);
+        MemberResponse memberResponse = memberService.findOrCreateMember(userInfo, OAuthProvider.GITHUB);
         return tokenProvider.createToken(memberResponse.id().toString());
     }
 

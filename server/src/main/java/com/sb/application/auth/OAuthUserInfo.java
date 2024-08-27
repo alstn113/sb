@@ -2,7 +2,7 @@ package com.sb.application.auth;
 
 
 import com.sb.domain.member.Member;
-import com.sb.domain.member.Provider;
+import com.sb.domain.member.OAuthProvider;
 import jakarta.annotation.Nullable;
 
 public record OAuthUserInfo(
@@ -13,7 +13,7 @@ public record OAuthUserInfo(
         String avatarUrl
 ) {
 
-    public Member toMember(Provider provider) {
+    public Member toMember(OAuthProvider provider) {
         return new Member(
                 email,
                 provider,

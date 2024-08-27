@@ -3,11 +3,13 @@ package com.sb.api;
 import java.io.IOException;
 import com.sb.api.common.CookieUtils;
 import com.sb.application.auth.AuthService;
+import com.sb.domain.member.OAuthProvider;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +19,9 @@ public class AuthApi {
 
     private final AuthService authService;
 
-    @GetMapping("/auth/social/redirect/github")
+    @GetMapping("/auth/social/redirect/{provider}")
     public void githubRedirect(
+            @PathVariable OAuthProvider provider,
             @RequestParam(value = "next", defaultValue = "/") String next,
             HttpServletResponse response
     ) throws IOException {
@@ -26,8 +29,9 @@ public class AuthApi {
         response.sendRedirect(redirectUri);
     }
 
-    @GetMapping("/auth/social/callback/github")
+    @GetMapping("/auth/social/callback/{provider}")
     public void githubCallback(
+            @PathVariable OAuthProvider provider,
             @RequestParam("code") String code,
             @RequestParam(value = "next", defaultValue = "/") String next,
             HttpServletResponse response
