@@ -21,9 +21,9 @@ public class OAuthService {
 
     public String oauthLogin(OAuthProvider provider, String code) {
         String accessToken = oauthContext.getAccessToken(provider, code);
-        OAuthMemberDetails memberDetails = oauthContext.getUserInfo(provider, accessToken);
+        OAuthUserDetails userDetails = oauthContext.getUserDetails(provider, accessToken);
 
-        MemberResponse memberResponse = memberService.findOrCreateMember(memberDetails, provider);
+        MemberResponse memberResponse = memberService.findOrCreateMember(userDetails, provider);
         return tokenProvider.createToken(memberResponse.id().toString());
     }
 

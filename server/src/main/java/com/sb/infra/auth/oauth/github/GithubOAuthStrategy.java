@@ -2,7 +2,7 @@ package com.sb.infra.auth.oauth.github;
 
 
 import com.sb.application.auth.oauth.OAuthStrategy;
-import com.sb.application.auth.oauth.OAuthMemberDetails;
+import com.sb.application.auth.oauth.OAuthUserDetails;
 import com.sb.domain.member.OAuthProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,10 +35,10 @@ public class GithubOAuthStrategy implements OAuthStrategy {
         return response.accessToken();
     }
 
-    public OAuthMemberDetails getUserInfo(String accessToken) {
-        GithubUserInfo githubUserInfo = githubOAuthClient.getUserInfo(accessToken);
+    public OAuthUserDetails getUserDetails(String accessToken) {
+        GithubUserDetails githubUserDetails = githubOAuthClient.getUserDetails(accessToken);
 
-        return githubUserInfo.toOAuthUserInfo();
+        return githubUserDetails.toOAuthUserDetails();
     }
 
     public String getClientRedirectUri(String next) {

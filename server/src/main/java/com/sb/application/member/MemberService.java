@@ -1,6 +1,6 @@
 package com.sb.application.member;
 
-import com.sb.application.auth.oauth.OAuthMemberDetails;
+import com.sb.application.auth.oauth.OAuthUserDetails;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
 import com.sb.domain.member.OAuthProvider;
@@ -15,9 +15,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public MemberResponse findOrCreateMember(OAuthMemberDetails memberDetails, OAuthProvider provider) {
-        Member member = memberRepository.findBySocialIdAndProvider(memberDetails.id(), provider)
-                .orElseGet(() -> memberRepository.save(memberDetails.toMember(provider)));
+    public MemberResponse findOrCreateMember(OAuthUserDetails userDetails, OAuthProvider provider) {
+        Member member = memberRepository.findBySocialIdAndProvider(userDetails.id(), provider)
+                .orElseGet(() -> memberRepository.save(userDetails.toMember(provider)));
 
         return MemberResponse.from(member);
     }

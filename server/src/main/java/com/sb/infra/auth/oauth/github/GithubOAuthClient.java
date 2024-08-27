@@ -33,12 +33,12 @@ public class GithubOAuthClient {
                 .body(GithubAccessTokenResponse.class);
     }
 
-    public GithubUserInfo getUserInfo(String accessToken) {
+    public GithubUserDetails getUserDetails(String accessToken) {
         return restClient.get()
                 .uri("https://api.github.com/user")
                 .header(AUTHORIZATION, String.format("Bearer %s", accessToken))
                 .accept(APPLICATION_JSON)
                 .retrieve()
-                .body(GithubUserInfo.class);
+                .body(GithubUserDetails.class);
     }
 }

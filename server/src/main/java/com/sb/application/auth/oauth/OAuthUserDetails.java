@@ -5,7 +5,7 @@ import com.sb.domain.member.Member;
 import com.sb.domain.member.OAuthProvider;
 import jakarta.annotation.Nullable;
 
-public record OAuthMemberDetails(
+public record OAuthUserDetails(
         Long id,
         @Nullable String email,
         String username,
