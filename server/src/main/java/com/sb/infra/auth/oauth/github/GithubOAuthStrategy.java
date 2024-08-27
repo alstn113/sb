@@ -4,6 +4,8 @@ package com.sb.infra.auth.oauth.github;
 import com.sb.application.auth.oauth.OAuthStrategy;
 import com.sb.application.auth.oauth.OAuthUserDetails;
 import com.sb.domain.member.OAuthProvider;
+import com.sb.infra.auth.oauth.github.dto.GithubAccessTokenResponse;
+import com.sb.infra.auth.oauth.github.dto.GithubUserDetailsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -29,16 +31,13 @@ public class GithubOAuthStrategy implements OAuthStrategy {
                 .toUriString();
     }
 
-    public String getAccessToken(String code) {
-        GithubAccessTokenResponse response = githubOAuthClient.getAccessToken(code);
+    public OAuthUserDetails getUserDetails(String code) {
+        GithubAccessTokenResponse accessTokenResponse = githubOAuthClient.fetchAccessToken(code);
+        String accessToken = accessTokenResponse.accessToken();
 
-        return response.accessToken();
-    }
+        GithubUserDetailsResponse userDetailsResponse = githubOAuthClient.fetchUserDetails(accessToken);
 
-    public OAuthUserDetails getUserDetails(String accessToken) {
-        GithubUserDetails githubUserDetails = githubOAuthClient.getUserDetails(accessToken);
-
-        return githubUserDetails.toOAuthUserDetails();
+        return userDetailsResponse.toOAuthUserDetails();
     }
 
     public String getClientRedirectUri(String next) {

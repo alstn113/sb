@@ -6,9 +6,7 @@ public interface OAuthStrategy {
 
     String getLoginUrl(String next);
 
-    String getAccessToken(String code);
-
-    OAuthUserDetails getUserDetails(String accessToken);
+    OAuthUserDetails getUserDetails(String code);
 
     String getClientRedirectUri(String next);
 

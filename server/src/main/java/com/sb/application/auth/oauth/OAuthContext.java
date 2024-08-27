@@ -15,14 +15,9 @@ public class OAuthContext {
         return strategy.getLoginUrl(next);
     }
 
-    public String getAccessToken(OAuthProvider providerType, String code) {
+    public OAuthUserDetails getUserDetails(OAuthProvider providerType, String code) {
         OAuthStrategy strategy = getOAuthStrategy(providerType);
-        return strategy.getAccessToken(code);
-    }
-
-    public OAuthUserDetails getUserDetails(OAuthProvider providerType, String accessToken) {
-        OAuthStrategy strategy = getOAuthStrategy(providerType);
-        return strategy.getUserDetails(accessToken);
+        return strategy.getUserDetails(code);
     }
 
     public String getClientRedirectUri(OAuthProvider providerType, String next) {

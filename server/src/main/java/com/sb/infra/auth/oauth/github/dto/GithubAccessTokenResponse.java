@@ -1,8 +1,8 @@
-package com.sb.infra.auth.oauth.github;
+package com.sb.infra.auth.oauth.github.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies.SnakeCaseStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 @JsonNaming(SnakeCaseStrategy.class)
-public record GithubAccessTokenRequest(String code, String clientId, String clientSecret) {
+public record GithubAccessTokenResponse(String accessToken, String tokenType, String scope) {
 }
