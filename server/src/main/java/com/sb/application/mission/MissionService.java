@@ -5,23 +5,17 @@ import com.sb.application.auth.Accessor;
 import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
 import com.sb.domain.solution.SolutionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MissionService {
 
     private final MissionRepository missionRepository;
     private final SolutionRepository solutionRepository;
-
-    public MissionService(
-            MissionRepository missionRepository,
-            SolutionRepository solutionRepository
-    ) {
-        this.missionRepository = missionRepository;
-        this.solutionRepository = solutionRepository;
-    }
 
     public List<MissionResponse> getMissions() {
         List<Mission> missions = missionRepository.findAll();

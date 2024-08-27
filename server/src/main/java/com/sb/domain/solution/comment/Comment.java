@@ -2,21 +2,20 @@ package com.sb.domain.solution.comment;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.solution.Solution;
+import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Table(indexes = {
-        @Index(name = "idx_solution_comment_solution_id", columnList = "solution_id"),
-})
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@Getter
 public class Comment extends CreatedAtAuditableEntity {
 
     @Column(nullable = false)
@@ -36,9 +35,6 @@ public class Comment extends CreatedAtAuditableEntity {
 
     @Column
     private LocalDateTime deletedAt;
-
-    protected Comment() {
-    }
 
     public Comment(String content, Solution solution, Member member) {
         this(null, content, solution, member, null, null);
@@ -92,27 +88,7 @@ public class Comment extends CreatedAtAuditableEntity {
         return parentComment.getId();
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public Solution getSolution() {
-        return solution;
-    }
-
     public Long getSolutionId() {
         return solution.getId();
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public Comment getParentComment() {
-        return parentComment;
-    }
-
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
     }
 }

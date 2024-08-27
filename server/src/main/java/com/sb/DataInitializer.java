@@ -12,6 +12,7 @@ import com.sb.domain.solution.Solution;
 import com.sb.domain.solution.SolutionRepository;
 import com.sb.domain.solution.comment.Comment;
 import com.sb.domain.solution.comment.CommentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
@@ -21,24 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Component
 @Transactional
 @Profile("dev")
+@RequiredArgsConstructor
 public class DataInitializer implements ApplicationRunner {
 
     private final MemberRepository memberRepository;
     private final MissionRepository missionRepository;
     private final SolutionRepository solutionRepository;
     private final CommentRepository commentRepository;
-
-    public DataInitializer(
-            MemberRepository memberRepository,
-            MissionRepository missionRepository,
-            SolutionRepository solutionRepository,
-            CommentRepository commentRepository
-    ) {
-        this.memberRepository = memberRepository;
-        this.missionRepository = missionRepository;
-        this.solutionRepository = solutionRepository;
-        this.commentRepository = commentRepository;
-    }
 
     @Override
     public void run(ApplicationArguments args) {

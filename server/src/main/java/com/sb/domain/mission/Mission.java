@@ -10,8 +10,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@Getter
 public class Mission extends IdentifiableEntity {
 
     @Column(nullable = false)
@@ -31,10 +35,7 @@ public class Mission extends IdentifiableEntity {
     private String url;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.PERSIST)
-    private Set<MissionTag> missionTags = new HashSet<>();
-
-    protected Mission() {
-    }
+    private final Set<MissionTag> missionTags = new HashSet<>();
 
     public Mission(
             String title,
@@ -78,29 +79,5 @@ public class Mission extends IdentifiableEntity {
     public void removeTag(Tag tag) {
         MissionTag missionTag = new MissionTag(this, tag);
         missionTags.remove(missionTag);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getThumbnail() {
-        return thumbnail;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public Set<MissionTag> getMissionTags() {
-        return missionTags;
     }
 }

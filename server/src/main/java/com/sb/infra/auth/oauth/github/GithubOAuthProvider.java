@@ -2,22 +2,16 @@ package com.sb.infra.auth.oauth.github;
 
 
 import com.sb.application.auth.OAuthUserInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
+@RequiredArgsConstructor
 public class GithubOAuthProvider {
 
     private final GithubOAuthClient githubOAuthClient;
     private final GithubOAuthProperties properties;
-
-    public GithubOAuthProvider(
-            GithubOAuthClient githubOAuthClient,
-            GithubOAuthProperties properties
-    ) {
-        this.githubOAuthClient = githubOAuthClient;
-        this.properties = properties;
-    }
 
     public String getLoginUrl(String next) {
         String redirectUriWithNext = UriComponentsBuilder.fromHttpUrl(properties.redirectUri())

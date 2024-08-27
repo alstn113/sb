@@ -5,8 +5,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@Getter
 public class Member extends CreatedAtAuditableEntity {
 
     @Column
@@ -27,9 +31,6 @@ public class Member extends CreatedAtAuditableEntity {
 
     @Column(nullable = false)
     private String avatarUrl;
-
-    protected Member() {
-    }
 
     public Member(
             String email,
@@ -58,29 +59,5 @@ public class Member extends CreatedAtAuditableEntity {
         this.username = username;
         this.displayName = displayName;
         this.avatarUrl = avatarUrl;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Provider getProvider() {
-        return provider;
-    }
-
-    public Long getSocialId() {
-        return socialId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getAvatarUrl() {
-        return avatarUrl;
     }
 }

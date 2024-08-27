@@ -10,26 +10,19 @@ import com.sb.domain.solution.Solution;
 import com.sb.domain.solution.SolutionRepository;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class SolutionService {
 
     private final SolutionRepository solutionRepository;
     private final MissionRepository missionRepository;
     private final MemberRepository memberRepository;
 
-    public SolutionService(
-            SolutionRepository solutionRepository,
-            MissionRepository missionRepository,
-            MemberRepository memberRepository
-    ) {
-        this.solutionRepository = solutionRepository;
-        this.missionRepository = missionRepository;
-        this.memberRepository = memberRepository;
-    }
 
     public List<SolutionResponse> getSolutions() {
         List<Solution> solutions = solutionRepository.findAll();

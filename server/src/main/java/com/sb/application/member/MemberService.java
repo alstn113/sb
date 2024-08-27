@@ -4,18 +4,16 @@ import com.sb.application.auth.OAuthUserInfo;
 import com.sb.domain.member.Member;
 import com.sb.domain.member.MemberRepository;
 import com.sb.domain.member.Provider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     public MemberResponse findOrCreateMember(OAuthUserInfo oAuthUserInfo, Provider provider) {
         Member member = memberRepository.findBySocialIdAndProvider(oAuthUserInfo.id(), provider)

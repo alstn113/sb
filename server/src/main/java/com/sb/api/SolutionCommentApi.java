@@ -10,6 +10,7 @@ import com.sb.application.solution.comment.CommentService;
 import com.sb.application.solution.comment.CommentsWithReplies;
 import com.sb.application.solution.comment.RootComment;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class SolutionCommentApi {
 
     private final CommentService commentService;
-
-    public SolutionCommentApi(CommentService commentService) {
-        this.commentService = commentService;
-    }
 
     @GetMapping("/solutions/{solutionId}/comments")
     public ResponseEntity<List<RootComment>> getSolutionComments(@PathVariable Long solutionId) {

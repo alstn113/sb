@@ -5,26 +5,18 @@ import com.sb.application.member.MemberResponse;
 import com.sb.application.member.MemberService;
 import com.sb.domain.member.Provider;
 import com.sb.infra.auth.oauth.github.GithubOAuthProvider;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AuthService {
 
     private final MemberService memberService;
     private final TokenProvider tokenProvider;
     private final GithubOAuthProvider githubOAuthProvider;
-
-    public AuthService(
-            MemberService memberService,
-            TokenProvider tokenProvider,
-            GithubOAuthProvider githubOAuthProvider
-    ) {
-        this.memberService = memberService;
-        this.tokenProvider = tokenProvider;
-        this.githubOAuthProvider = githubOAuthProvider;
-    }
 
     public String getGithubOAuthLoginUrl(String next) {
         return githubOAuthProvider.getLoginUrl(next);

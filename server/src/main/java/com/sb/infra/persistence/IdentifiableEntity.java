@@ -5,9 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import lombok.Getter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 @MappedSuperclass
+@Getter
+@ToString
 public abstract class IdentifiableEntity {
 
     @Id
@@ -20,10 +24,6 @@ public abstract class IdentifiableEntity {
 
     protected IdentifiableEntity(Long id) {
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @Override
@@ -41,12 +41,5 @@ public abstract class IdentifiableEntity {
     @Override
     public int hashCode() {
         return Objects.hashCode(getId());
-    }
-
-    @Override
-    public String toString() {
-        return "IdentifiableEntity{" +
-               "id=" + id +
-               '}';
     }
 }

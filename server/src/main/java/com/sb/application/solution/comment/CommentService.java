@@ -9,26 +9,18 @@ import com.sb.domain.solution.comment.Comment;
 import com.sb.domain.solution.comment.CommentRepository;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class CommentService {
 
     private final MemberRepository memberRepository;
     private final SolutionRepository solutionRepository;
     private final CommentRepository commentRepository;
-
-    public CommentService(
-            MemberRepository memberRepository,
-            SolutionRepository solutionRepository,
-            CommentRepository commentRepository
-    ) {
-        this.memberRepository = memberRepository;
-        this.solutionRepository = solutionRepository;
-        this.commentRepository = commentRepository;
-    }
 
     public Comment getComment(Long commentId) {
         Comment comment = commentRepository.getCommentById(commentId);

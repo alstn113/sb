@@ -1,20 +1,22 @@
 package com.sb.domain.solution;
 
 import java.time.LocalDateTime;
-import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import com.sb.domain.member.Member;
 import com.sb.domain.mission.Mission;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
+import com.sb.infra.persistence.CreatedAtAuditableEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@Getter
 public class Solution extends CreatedAtAuditableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -37,9 +39,6 @@ public class Solution extends CreatedAtAuditableEntity {
     @Column
     private LocalDateTime submittedAt;
 
-    protected Solution() {
-    }
-
     public Solution(
             Mission mission,
             Member member,
@@ -60,7 +59,7 @@ public class Solution extends CreatedAtAuditableEntity {
             String url,
             LocalDateTime submittedAt
     ) {
-        this.id = id;
+        super(id);
         this.mission = mission;
         this.member = member;
         this.title = title;
@@ -84,31 +83,7 @@ public class Solution extends CreatedAtAuditableEntity {
         this.submittedAt = LocalDateTime.now();
     }
 
-    public Mission getMission() {
-        return mission;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
     public boolean isOwnedBy(Long memberId) {
         return getId().equals(memberId);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public LocalDateTime getSubmittedAt() {
-        return submittedAt;
     }
 }

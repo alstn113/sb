@@ -9,6 +9,7 @@ import com.sb.application.mission.MissionResponse;
 import com.sb.application.mission.MissionService;
 import com.sb.application.mission.MissionWithStatusResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class MissionApi {
 
     private final MissionService missionService;
-
-    public MissionApi(MissionService missionService) {
-        this.missionService = missionService;
-    }
 
     @GetMapping("/missions")
     public ResponseEntity<List<MissionResponse>> getMissions() {

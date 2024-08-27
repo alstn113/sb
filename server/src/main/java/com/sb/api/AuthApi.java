@@ -4,6 +4,7 @@ import java.io.IOException;
 import com.sb.api.common.CookieUtils;
 import com.sb.application.auth.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,13 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthApi {
 
     private final AuthService authService;
-
-    public AuthApi(AuthService authService) {
-        this.authService = authService;
-    }
 
     @GetMapping("/auth/social/redirect/github")
     public void githubRedirect(

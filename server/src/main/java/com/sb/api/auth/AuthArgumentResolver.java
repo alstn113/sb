@@ -12,6 +12,7 @@ import com.sb.infra.exception.SbException;
 import jakarta.annotation.Nonnull;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
@@ -21,21 +22,12 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 @Component
+@RequiredArgsConstructor
 public class AuthArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final CookieAuthorizationExtractor authorizationExtractor;
     private final AuthService authService;
     private final MemberService memberService;
-
-    public AuthArgumentResolver(
-            CookieAuthorizationExtractor authorizationExtractor,
-            AuthService authService,
-            MemberService memberService
-    ) {
-        this.authorizationExtractor = authorizationExtractor;
-        this.authService = authService;
-        this.memberService = memberService;
-    }
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {

@@ -5,8 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
+@Getter
 public class MissionTag extends IdentifiableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -17,9 +21,6 @@ public class MissionTag extends IdentifiableEntity {
     @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 
-    protected MissionTag() {
-    }
-
     public MissionTag(Mission mission, Tag tag) {
         this(null, mission, tag);
     }
@@ -28,18 +29,6 @@ public class MissionTag extends IdentifiableEntity {
         super(id);
         this.mission = mission;
         this.tag = tag;
-    }
-
-    public Mission getMission() {
-        return mission;
-    }
-
-    public Tag getTag() {
-        return tag;
-    }
-
-    public String getTagName() {
-        return tag.getName();
     }
 
     public boolean isSameTagName(String tagName) {
