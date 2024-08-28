@@ -10,19 +10,19 @@ public class OAuthContext {
 
     private final OAuthStrategyRegistry oauthStrategyRegistry;
 
-    public String getLoginUrl(OAuthProvider provider, String next) {
+    public String getOAuthLoginUrl(OAuthProvider provider, String next) {
         OAuthStrategy strategy = getOAuthStrategy(provider);
-        return strategy.getLoginUrl(next);
+        return strategy.buildOAuthLoginUrl(next);
     }
 
-    public OAuthUserDetails getUserDetails(OAuthProvider provider, String code) {
+    public OAuthUserDetails getOAuthUserDetails(OAuthProvider provider, String code) {
         OAuthStrategy strategy = getOAuthStrategy(provider);
-        return strategy.getUserDetails(code);
+        return strategy.fetchOAuthUserDetails(code);
     }
 
-    public String getClientRedirectUri(OAuthProvider provider, String next) {
+    public String getClientRedirectUrl(OAuthProvider provider, String next) {
         OAuthStrategy strategy = getOAuthStrategy(provider);
-        return strategy.getClientRedirectUri(next);
+        return strategy.buildClientRedirectUrl(next);
     }
 
     private OAuthStrategy getOAuthStrategy(OAuthProvider provider) {

@@ -16,16 +16,16 @@ public class OAuthService {
     private final TokenProvider tokenProvider;
 
     public String getOAuthLoginUrl(OAuthProvider provider, String next) {
-        return oauthContext.getLoginUrl(provider, next);
+        return oauthContext.getOAuthLoginUrl(provider, next);
     }
 
     public String oauthLogin(OAuthProvider provider, String code) {
-        OAuthUserDetails userDetails = oauthContext.getUserDetails(provider, code);
+        OAuthUserDetails userDetails = oauthContext.getOAuthUserDetails(provider, code);
         MemberResponse memberResponse = memberService.findOrCreateMember(userDetails, provider);
         return tokenProvider.createToken(memberResponse.id().toString());
     }
 
-    public String getClientRedirectUri(OAuthProvider provider, String next) {
-        return oauthContext.getClientRedirectUri(provider, next);
+    public String getClientRedirectUrl(OAuthProvider provider, String next) {
+        return oauthContext.getClientRedirectUrl(provider, next);
     }
 }

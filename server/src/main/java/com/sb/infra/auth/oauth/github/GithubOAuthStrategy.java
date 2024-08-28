@@ -17,7 +17,7 @@ public class GithubOAuthStrategy implements OAuthStrategy {
     private final GithubOAuthClient githubOAuthClient;
     private final GithubOAuthProperties properties;
 
-    public String getLoginUrl(String next) {
+    public String buildOAuthLoginUrl(String next) {
         String redirectUriWithNext = UriComponentsBuilder.fromHttpUrl(properties.redirectUri())
                 .queryParam("next", next)
                 .build()
@@ -31,7 +31,7 @@ public class GithubOAuthStrategy implements OAuthStrategy {
                 .toUriString();
     }
 
-    public OAuthUserDetails getUserDetails(String code) {
+    public OAuthUserDetails fetchOAuthUserDetails(String code) {
         GithubAccessTokenResponse accessTokenResponse = githubOAuthClient.fetchAccessToken(code);
         String accessToken = accessTokenResponse.accessToken();
 
@@ -40,7 +40,7 @@ public class GithubOAuthStrategy implements OAuthStrategy {
         return userDetailsResponse.toOAuthUserDetails();
     }
 
-    public String getClientRedirectUri(String next) {
+    public String buildClientRedirectUrl(String next) {
         return UriComponentsBuilder.fromHttpUrl(properties.clientUri())
                 .path(next)
                 .build()

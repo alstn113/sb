@@ -45,7 +45,7 @@ class AuthApiTest extends IntegrationTestSupport {
         String expectedRedirectUri = "https://example.com?next=" + next;
         BDDMockito.given(oauthService.oauthLogin(OAuthProvider.GITHUB, code))
                 .willReturn(token);
-        BDDMockito.given(oauthService.getClientRedirectUri(OAuthProvider.GITHUB, next))
+        BDDMockito.given(oauthService.getClientRedirectUrl(OAuthProvider.GITHUB, next))
                 .willReturn(expectedRedirectUri);
 
         mockMvc.perform(get("/auth/social/callback/github")

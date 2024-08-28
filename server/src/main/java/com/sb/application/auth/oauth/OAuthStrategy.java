@@ -4,11 +4,11 @@ import com.sb.domain.member.OAuthProvider;
 
 public interface OAuthStrategy {
 
-    String getLoginUrl(String next);
+    String buildOAuthLoginUrl(String next);
 
-    OAuthUserDetails getUserDetails(String code);
+    OAuthUserDetails fetchOAuthUserDetails(String code);
 
-    String getClientRedirectUri(String next);
+    String buildClientRedirectUrl(String next);
 
     OAuthProvider getProvider();
 }

@@ -40,7 +40,7 @@ public class AuthApi {
 
         CookieUtils.setTokenCookie(response, token);
 
-        String redirectUri = oauthService.getClientRedirectUri(provider, next);
+        String redirectUri = oauthService.getClientRedirectUrl(provider, next);
         response.sendRedirect(redirectUri);
     }
 
