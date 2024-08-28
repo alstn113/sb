@@ -10,23 +10,23 @@ public class OAuthContext {
 
     private final OAuthStrategyRegistry oauthStrategyRegistry;
 
-    public String getLoginUrl(OAuthProvider providerType, String next) {
-        OAuthStrategy strategy = getOAuthStrategy(providerType);
+    public String getLoginUrl(OAuthProvider provider, String next) {
+        OAuthStrategy strategy = getOAuthStrategy(provider);
         return strategy.getLoginUrl(next);
     }
 
-    public OAuthUserDetails getUserDetails(OAuthProvider providerType, String code) {
-        OAuthStrategy strategy = getOAuthStrategy(providerType);
+    public OAuthUserDetails getUserDetails(OAuthProvider provider, String code) {
+        OAuthStrategy strategy = getOAuthStrategy(provider);
         return strategy.getUserDetails(code);
     }
 
-    public String getClientRedirectUri(OAuthProvider providerType, String next) {
-        OAuthStrategy strategy = getOAuthStrategy(providerType);
+    public String getClientRedirectUri(OAuthProvider provider, String next) {
+        OAuthStrategy strategy = getOAuthStrategy(provider);
         return strategy.getClientRedirectUri(next);
     }
 
-    private OAuthStrategy getOAuthStrategy(OAuthProvider providerType) {
-        return oauthStrategyRegistry.getProvider(providerType)
-                .orElseThrow(() -> new IllegalArgumentException("Unsupported OAuth provider: " + providerType));
+    private OAuthStrategy getOAuthStrategy(OAuthProvider provider) {
+        return oauthStrategyRegistry.getProvider(provider)
+                .orElseThrow(() -> new IllegalArgumentException("Unsupported OAuth provider: " + provider));
     }
 }

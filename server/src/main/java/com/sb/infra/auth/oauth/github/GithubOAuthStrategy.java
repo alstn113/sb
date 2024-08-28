@@ -47,7 +47,7 @@ public class GithubOAuthStrategy implements OAuthStrategy {
                 .toUriString();
     }
 
-    public OAuthProvider getProviderType() {
+    public OAuthProvider getProvider() {
         return OAuthProvider.GITHUB;
     }
 }

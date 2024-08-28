@@ -16,13 +16,10 @@ public class OAuthStrategyRegistry {
 
     public OAuthStrategyRegistry(Set<OAuthStrategy> providers) {
         this.strategies = providers.stream()
-                .collect(toMap(
-                        OAuthStrategy::getProviderType,
-                        Function.identity()
-                ));
+                .collect(toMap(OAuthStrategy::getProvider, Function.identity()));
     }
 
-    public Optional<OAuthStrategy> getProvider(OAuthProvider providerType) {
-        return Optional.ofNullable(strategies.get(providerType));
+    public Optional<OAuthStrategy> getProvider(OAuthProvider provider) {
+        return Optional.ofNullable(strategies.get(provider));
     }
 }

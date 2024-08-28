@@ -10,5 +10,5 @@ public interface OAuthStrategy {
 
     String getClientRedirectUri(String next);
 
-    OAuthProvider getProviderType();
+    OAuthProvider getProvider();
 }
