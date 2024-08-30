@@ -9,11 +9,12 @@ import com.sb.domain.solution.comment.SolutionComment;
 import com.sb.domain.solution.comment.SolutionCommentRepository;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class SolutionCommentService {
 
     private final CommentGroupingService commentGroupingService;
@@ -21,21 +22,9 @@ public class SolutionCommentService {
     private final MemberRepository memberRepository;
     private final SolutionRepository solutionRepository;
 
-    public SolutionCommentService(
-            CommentGroupingService commentGroupingService,
-            SolutionCommentRepository solutionCommentRepository,
-            MemberRepository memberRepository,
-            SolutionRepository solutionRepository
-    ) {
-        this.commentGroupingService = commentGroupingService;
-        this.solutionCommentRepository = solutionCommentRepository;
-        this.memberRepository = memberRepository;
-        this.solutionRepository = solutionRepository;
-    }
 
     public SolutionComment getComment(Long commentId) {
-        SolutionComment comment = solutionCommentRepository.findById(commentId)
-                .orElseThrow(() -> new SbException(ExceptionType.COMMENT_NOT_FOUND));
+        SolutionComment comment = solutionCommentRepository.getCommentById(commentId);
 
         if (comment.isDeleted()) {
             throw new SbException(ExceptionType.COMMENT_NOT_FOUND);
@@ -44,12 +33,14 @@ public class SolutionCommentService {
         return comment;
     }
 
+    @Transactional(readOnly = true)
     public List<SolutionCommentRepliesResponse> getCommentsWithReplies(Long solutionId) {
         List<SolutionComment> comments = solutionCommentRepository.findAllBySolution_IdOrderByCreatedAtAsc(solutionId);
 
         return commentGroupingService.groupReplies(comments);
     }
 
+    @Transactional
     public CreateSolutionCommentResponse addComment(Long solutionId, SolutionCommentRequest request, Long memberId) {
         Member member = memberRepository.getMemberById(memberId);
         Solution solution = solutionRepository.getSolutionById(solutionId);
@@ -77,6 +68,7 @@ public class SolutionCommentService {
         return solutionCommentRepository.save(rootComment);
     }
 
+    @Transactional
     public void deleteComment(Long commentId, Long memberId) {
         SolutionComment comment = getComment(commentId);
 
