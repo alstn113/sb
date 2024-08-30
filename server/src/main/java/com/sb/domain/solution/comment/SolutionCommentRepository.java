@@ -5,11 +5,11 @@ import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface SolutionCommentRepository extends JpaRepository<SolutionComment, Long> {
 
-    List<Comment> findAllBySolution_IdOrderByCreatedAtAsc(Long solutionId);
+    List<SolutionComment> findAllBySolution_IdOrderByCreatedAtAsc(Long solutionId);
 
-    default Comment getCommentById(Long id) {
+    default SolutionComment getCommentById(Long id) {
         return findById(id)
                 .orElseThrow(() -> new SbException(ExceptionType.COMMENT_NOT_FOUND));
     }

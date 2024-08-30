@@ -10,8 +10,8 @@ import com.sb.domain.mission.Mission;
 import com.sb.domain.mission.MissionRepository;
 import com.sb.domain.solution.Solution;
 import com.sb.domain.solution.SolutionRepository;
-import com.sb.domain.solution.comment.Comment;
-import com.sb.domain.solution.comment.CommentRepository;
+import com.sb.domain.solution.comment.SolutionComment;
+import com.sb.domain.solution.comment.SolutionCommentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -21,14 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-@Profile("dev")
+@Profile("!test")
 @RequiredArgsConstructor
 public class DataInitializer implements ApplicationRunner {
 
     private final MemberRepository memberRepository;
     private final MissionRepository missionRepository;
     private final SolutionRepository solutionRepository;
-    private final CommentRepository commentRepository;
+    private final SolutionCommentRepository commentRepository;
 
     @Override
     public void run(ApplicationArguments args) {
@@ -89,33 +89,30 @@ public class DataInitializer implements ApplicationRunner {
                 LocalDateTime.now()
         ));
 
-        Comment root1 = commentRepository.save(new Comment(
+        SolutionComment root1 = commentRepository.save(SolutionComment.create(
                 "맞아요, 저도 실패에 대해 부정적인 감정이 많았는데, 결국 실패가 저를 성장하게 만든 것 같아요. 특히 첫 직장에서 해고당했을 때, 정말 힘들었지만 그 경험이 저를 더 강하게 만들어 줬어요. 다시 일어나서 새로운 도전을 했고, 지금은 그때보다 훨씬 나은 자리에 있어요.",
                 solution,
                 member1
         ));
-        Comment root2 = commentRepository.save(new Comment(
+        SolutionComment root2 = commentRepository.save(SolutionComment.create(
                 "그런데 실패가 반복되면 진짜로 힘들어지지 않나요? 저는 최근 몇 년 동안 연달아 실패만 하다 보니 스스로에 대한 믿음이 많이 흔들렸어요. 이럴 때는 어떻게 해야 할까요?",
                 solution,
                 member2
         ));
-        Comment reply1ToRoot1 = commentRepository.save(Comment.reply(
+        SolutionComment reply1ToRoot1 = commentRepository.save(root1.reply(
                 "저도 비슷한 경험을 했어요. 첫 번째 창업에서 큰 실패를 겪었을 때 세상이 무너지는 줄 알았어요. 그런데 시간이 지나고 나서 보니 그 실패가 없었더라면 지금의 저도 없었겠다는 생각이 들어요. 실패가 오히려 저를 더 단단하게 만들어 준 것 같아요.",
-                solution,
-                member2,
-                root1
+                member2
         ));
-        Comment reply1ToRoot2 = commentRepository.save(Comment.reply(
+        SolutionComment reply1ToRoot2 = commentRepository.save(root1.reply(
                 "Alice 님, Bob 님 두 분 다 정말 대단하세요. 저는 아직도 실패가 두려워서 새로운 시도를 망설이는데, 두 분 이야기를 들으니 용기가 생기네요. 실패를 두려워하지 않고 앞으로 나아가야겠다는 생각이 들어요.",
-                solution,
-                member3,
-                root1
+                member3
         ));
-        Comment reply2ToRoot1 = commentRepository.save(Comment.reply(
+        SolutionComment reply2ToRoot1 = commentRepository.save(root2.reply(
                 "Bob 님, 그 마음 충분히 이해해요. 저도 실패가 계속될 때는 자존감이 바닥을 칠 때가 있었어요. 그럴 때 저는 잠시 멈추고, 제가 왜 이 길을 선택했는지 다시 생각해보곤 했어요. 그리고 작은 성취라도 하나씩 쌓아가면서 다시 자신감을 회복하려고 노력했죠.1",
-                solution,
-                member1,
-                root2
+                member1
         ));
+
+        root2.delete();
+        reply1ToRoot1.delete();
     }
 }

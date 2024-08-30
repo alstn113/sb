@@ -78,7 +78,7 @@ export const CommentAPI = {
   },
 
   deleteComment: async (commentId: number) => {
-    const { data } = await apiClient.delete(`/comments/${commentId}`);
+    const { data } = await apiClient.delete(`/solutions/comments/${commentId}`);
     return data;
   },
 };
