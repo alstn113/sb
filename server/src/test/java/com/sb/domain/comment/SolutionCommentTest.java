@@ -25,7 +25,7 @@ class SolutionCommentTest {
 
         assertAll(
                 () -> assertThat(comment.getContent()).isEqualTo(content),
-                () -> assertThat(comment.getParentComment()).isNull(),
+                () -> assertThat(comment.getParentCommentId()).isNull(),
                 () -> assertThat(comment.getDeletedAt()).isNull()
         );
     }
@@ -65,7 +65,7 @@ class SolutionCommentTest {
                 () -> assertThat(reply.getContent()).isEqualTo(content),
                 () -> assertThat(reply.getSolution()).isEqualTo(parentComment.getSolution()),
                 () -> assertThat(reply.getMember()).isEqualTo(member),
-                () -> assertThat(reply.getParentComment()).isEqualTo(parentComment),
+                () -> assertThat(reply.getParentCommentId()).isEqualTo(parentComment.getId()),
                 () -> assertThat(reply.getDeletedAt()).isNull()
         );
     }
@@ -87,9 +87,12 @@ class SolutionCommentTest {
     @Test
     @DisplayName("답글에는 답글을 달 수 없다.")
     void replyFailedWhenAlreadyReply() {
-        SolutionComment rootComment = SolutionCommentTestData.defaultSolutionComment().build();
+        SolutionComment rootComment = SolutionCommentTestData.defaultSolutionComment()
+                .withId(1L)
+                .build();
         SolutionComment reply = SolutionCommentTestData.defaultSolutionComment()
-                .withParentComment(rootComment)
+                .withId(2L)
+                .withParentCommentId(rootComment.getId())
                 .build();
         String content = "답글에 대한 답글입니다.";
         Member member = MemberTestData.defaultMember().build();

@@ -1,7 +1,6 @@
 package com.sb.application.solution.comment;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import com.sb.application.member.MemberResponse;
 import com.sb.domain.solution.comment.SolutionComment;
 
@@ -16,14 +15,10 @@ public record CreateSolutionCommentResponse(
 ) {
 
     public static CreateSolutionCommentResponse from(SolutionComment comment) {
-        Long parentCommentId = Optional.ofNullable(comment.getParentComment())
-                .map(SolutionComment::getId)
-                .orElse(null);
-
         return new CreateSolutionCommentResponse(
                 comment.getId(),
                 comment.getSolutionId(),
-                parentCommentId,
+                comment.getParentCommentId(),
                 comment.getContent(),
                 MemberResponse.from(comment.getMember()),
                 comment.getCreatedAt()

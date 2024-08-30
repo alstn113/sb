@@ -1,8 +1,8 @@
-package com.sb.domain.solution.comment;
+package com.sb.domain.discussion.comment;
 
 import java.time.LocalDateTime;
+import com.sb.domain.discussion.Discussion;
 import com.sb.domain.member.Member;
-import com.sb.domain.solution.Solution;
 import com.sb.infra.exception.ExceptionType;
 import com.sb.infra.exception.SbException;
 import com.sb.infra.persistence.CreatedAtAuditableEntity;
@@ -14,59 +14,61 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Getter
-public class SolutionComment extends CreatedAtAuditableEntity {
+public class DiscussionComment extends CreatedAtAuditableEntity {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "solution_id", nullable = false)
-    private Solution solution;
+    @JoinColumn(name = "discussion_id", nullable = false)
+    private Discussion discussion;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @Column(name = "parent_comment_id")
-    private Long parentCommentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_id")
+    private DiscussionComment parentComment;
 
     @Column
     private LocalDateTime deletedAt;
 
-    public SolutionComment(
+    public DiscussionComment(
             String content,
-            Solution solution,
+            Discussion discussion,
             Member member,
-            Long parentCommentId,
+            DiscussionComment parentComment,
             LocalDateTime deletedAt
     ) {
-        this(null, content, solution, member, parentCommentId, deletedAt);
+        this(null, content, discussion, member, parentComment, deletedAt);
     }
 
-    public SolutionComment(
+    public DiscussionComment(
             Long id,
             String content,
-            Solution solution,
+            Discussion discussion,
             Member member,
-            Long parentCommentId,
+            DiscussionComment parentComment,
             LocalDateTime deletedAt
     ) {
         super(id);
         this.content = content;
-        this.solution = solution;
+        this.discussion = discussion;
         this.member = member;
-        this.parentCommentId = parentCommentId;
+        this.parentComment = parentComment;
         this.deletedAt = deletedAt;
     }
 
-    public static SolutionComment create(String content, Solution solution, Member member) {
-        return new SolutionComment(content, solution, member, null, null);
+    public static DiscussionComment create(String content, Discussion discussion, Member member) {
+        return new DiscussionComment(content, discussion, member, null, null);
     }
 
-    public SolutionComment reply(String content, Member member) {
+    public DiscussionComment reply(String content, Member member) {
         if (this.isDeleted()) {
             throw new SbException(ExceptionType.COMMENT_ALREADY_DELETED);
         }
@@ -75,11 +77,11 @@ public class SolutionComment extends CreatedAtAuditableEntity {
             throw new SbException(ExceptionType.CANNOT_REPLY_TO_REPLY);
         }
 
-        SolutionComment reply = new SolutionComment();
+        DiscussionComment reply = new DiscussionComment();
         reply.content = content;
-        reply.solution = this.solution;
+        reply.discussion = this.discussion;
         reply.member = member;
-        reply.parentCommentId = this.getId();
+        reply.parentComment = this;
 
         return reply;
     }
@@ -92,20 +94,24 @@ public class SolutionComment extends CreatedAtAuditableEntity {
         this.deletedAt = LocalDateTime.now();
     }
 
-    public Long getSolutionId() {
-        return solution.getId();
+    public Long getDiscussionId() {
+        return discussion.getId();
     }
 
     public boolean isNotWrittenBy(Long memberId) {
         return !member.getId().equals(memberId);
     }
 
+    public Long getParentCommentId() {
+        return parentComment.getId();
+    }
+
     public boolean isRootComment() {
-        return parentCommentId == null;
+        return parentComment == null;
     }
 
     public boolean isReply() {
-        return parentCommentId != null;
+        return parentComment != null;
     }
 
     public boolean isNotDeleted() {
