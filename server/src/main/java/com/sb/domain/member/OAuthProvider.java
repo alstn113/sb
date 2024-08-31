@@ -1,6 +1,8 @@
 package com.sb.domain.member;
 
 import java.util.Optional;
+import com.sb.infra.exception.ExceptionType;
+import com.sb.infra.exception.SbException;
 
 public enum OAuthProvider {
 
@@ -11,6 +13,6 @@ public enum OAuthProvider {
         return Optional.ofNullable(provider)
                 .map(String::toUpperCase)
                 .map(OAuthProvider::valueOf)
-                .orElseThrow(() -> new IllegalArgumentException("Unsupported OAuth provider: " + provider));
+                .orElseThrow(() -> new SbException(ExceptionType.OAUTH_PROVIDER_NOT_FOUND));
     }
 }

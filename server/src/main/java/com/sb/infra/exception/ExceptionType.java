@@ -18,7 +18,9 @@ public enum ExceptionType {
     COMMENT_NOT_YOURS(HttpStatus.FORBIDDEN, "본인이 작성한 댓글이 아닙니다."),
     COMMENT_ALREADY_DELETED(HttpStatus.BAD_REQUEST, "이미 삭제된 댓글입니다."),
     CANNOT_REPLY_TO_REPLY(HttpStatus.BAD_REQUEST, "답글에는 답글을 작성할 수 없습니다."),
-    COMMENT_NOT_WRITTEN_BY_MEMBER(HttpStatus.FORBIDDEN, "작성자만 댓글을 삭제할 수 있습니다.");
+    COMMENT_NOT_WRITTEN_BY_MEMBER(HttpStatus.FORBIDDEN, "작성자만 댓글을 삭제할 수 있습니다."),
+    OAUTH_PROVIDER_NOT_FOUND(HttpStatus.BAD_REQUEST, "지원하지 않는 OAuth 제공자입니다."),
+    ;
 
     private final HttpStatus status;
     private final String message;

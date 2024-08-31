@@ -1,6 +1,8 @@
 package com.sb.application.auth.oauth;
 
 import com.sb.domain.member.OAuthProvider;
+import com.sb.infra.exception.ExceptionType;
+import com.sb.infra.exception.SbException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +29,6 @@ public class OAuthContext {
 
     private OAuthStrategy getOAuthStrategy(OAuthProvider provider) {
         return oauthStrategyRegistry.getProvider(provider)
-                .orElseThrow(() -> new IllegalArgumentException("Unsupported OAuth provider: " + provider));
+                .orElseThrow(() -> new SbException(ExceptionType.OAUTH_PROVIDER_NOT_FOUND));
     }
 }
