@@ -1,0 +1,41 @@
+services:
+  mysql:
+    image: mysql
+    container_name: sb-mysql
+    networks:
+      - spring-mysql-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      TZ: Asia/Seoul
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./db/mysql/config:/etc/mysql/conf.d
+      - ./db/mysql/init:/docker-entrypoint-initdb.d
+    command: [ "mysqld", "--character-set-server=utf8mb4", "--collation-server=utf8mb4_general_ci" ]
+
+  application:
+    image: ${DOCKERHUB_IMAGE}
+    container_name: sb-app
+    networks:
+      - spring-mysql-network
+    depends_on:
+      - sb-mysql
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      TZ: Asia/Seoul
+      SPRING_DATASOURCE_URL: jdbc:mysql://sb-mysql:3306/sb?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    restart: always
+
+networks:
+  spring-mysql-network:
+    driver: bridge

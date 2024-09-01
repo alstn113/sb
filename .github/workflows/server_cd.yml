@@ -74,7 +74,7 @@ jobs:
 
       # 컨테이너를 종료하지 않아도 종료 후 실행됨 (추정)
       - name: Docker run
-        run: docker compose -f compose.yml up -d
+        run: docker compose -f compose.dev.yml up -d
 
       # 모든 사용되지 않는 이미지 삭제
       - name: Docker remove unused images
