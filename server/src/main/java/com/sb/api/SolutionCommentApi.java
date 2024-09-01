@@ -27,7 +27,7 @@ public class SolutionCommentApi {
 
     private final SolutionCommentService solutionCommentService;
 
-    @GetMapping("/solutions/{solutionId}/comments")
+    @GetMapping("/api/v1/solutions/{solutionId}/comments")
     @Operation(summary = "솔루션 댓글 조회 API", description = "솔루션의 댓글 목록을 조회합니다. 댓글들과 댓글들에 대한 답글을 조회합니다.")
     public ResponseEntity<List<SolutionCommentRepliesResponse>> getComments(
             @PathVariable Long solutionId
@@ -37,7 +37,7 @@ public class SolutionCommentApi {
         return ResponseEntity.ok(responses);
     }
 
-    @PostMapping("/solutions/{solutionId}/comments")
+    @PostMapping("/api/v1/solutions/{solutionId}/comments")
     @Operation(summary = "솔루션 댓글 추가 API", description = "솔루션에 댓글을 추가합니다. 부모 댓글 식별자로 답글을 추가할 수 있습니다.")
     public ResponseEntity<CreateSolutionCommentResponse> addComment(
             @PathVariable Long solutionId,
@@ -46,12 +46,12 @@ public class SolutionCommentApi {
     ) {
         CreateSolutionCommentResponse response = solutionCommentService.addComment(solutionId, request, accessor.id());
 
-        URI location = URI.create("/solutions/" + response.solutionId() + "/comments/" + response.id());
+        URI location = URI.create("/api/v1/solutions/" + response.solutionId() + "/comments/" + response.id());
 
         return ResponseEntity.created(location).body(response);
     }
 
-    @DeleteMapping("/solutions/comments/{commentId}")
+    @DeleteMapping("/api/v1/solutions/comments/{commentId}")
     @Operation(summary = "솔루션 댓글 삭제 API", description = "솔루션의 댓글을 삭제합니다.")
     public ResponseEntity<Void> deleteComment(
             @PathVariable Long commentId,

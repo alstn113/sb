@@ -40,11 +40,10 @@ class MemberApiTest extends IntegrationTestSupport {
                 .willReturn(response);
 
         mockMvc.perform(
-                        get("/members/me")
+                        get("/api/v1/members/me")
                                 .cookie(new Cookie("token", "mock_token"))
                 )
                 .andDo(print())
                 .andExpect(status().isOk());
-        // TODO 응답값이 안들어오는 문제
     }
 }

@@ -19,7 +19,7 @@ public class AuthApi {
 
     private final OAuthService oauthService;
 
-    @GetMapping("/auth/social/redirect/{provider}")
+    @GetMapping("/api/v1/auth/social/redirect/{provider}")
     public void githubRedirect(
             @PathVariable OAuthProvider provider,
             @RequestParam(value = "next", defaultValue = "/") String next,
@@ -29,7 +29,7 @@ public class AuthApi {
         response.sendRedirect(redirectUri);
     }
 
-    @GetMapping("/auth/social/callback/{provider}")
+    @GetMapping("/api/v1/auth/social/callback/{provider}")
     public void githubCallback(
             @PathVariable OAuthProvider provider,
             @RequestParam("code") String code,
@@ -44,7 +44,7 @@ public class AuthApi {
         response.sendRedirect(redirectUri);
     }
 
-    @DeleteMapping("/auth/logout")
+    @DeleteMapping("/api/v1/auth/logout")
     public ResponseEntity<Void> logout(HttpServletResponse response) {
         CookieUtils.clearTokenCookie(response);
 

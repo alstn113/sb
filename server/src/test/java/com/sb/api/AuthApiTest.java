@@ -29,7 +29,7 @@ class AuthApiTest extends IntegrationTestSupport {
         BDDMockito.given(oauthService.getOAuthLoginUrl(OAuthProvider.GITHUB, next))
                 .willReturn(expectedRedirectUri);
 
-        mockMvc.perform(get("/auth/social/redirect/github")
+        mockMvc.perform(get("/api/v1/auth/social/redirect/github")
                         .param("next", next))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -48,7 +48,7 @@ class AuthApiTest extends IntegrationTestSupport {
         BDDMockito.given(oauthService.getClientRedirectUrl(OAuthProvider.GITHUB, next))
                 .willReturn(expectedRedirectUri);
 
-        mockMvc.perform(get("/auth/social/callback/github")
+        mockMvc.perform(get("/api/v1/auth/social/callback/github")
                         .param("code", code)
                         .param("next", next))
                 .andDo(print())
@@ -61,7 +61,7 @@ class AuthApiTest extends IntegrationTestSupport {
     @DisplayName("로그아웃한다.")
     void logout() throws Exception {
         mockMvc.perform(
-                        delete("/auth/logout")
+                        delete("/api/v1/auth/logout")
                                 .cookie(new Cookie("token", "mock_token"))
                 )
                 .andDo(print())

@@ -24,32 +24,32 @@ public class SolutionApi {
 
     private final SolutionService solutionService;
 
-    @GetMapping("/solutions")
+    @GetMapping("/api/v1/solutions")
     public ResponseEntity<List<SolutionResponse>> getSolutions() {
         List<SolutionResponse> responses = solutionService.getSolutions();
 
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/solutions/{solutionId}")
+    @GetMapping("/api/v1/solutions/{solutionId}")
     public ResponseEntity<SolutionResponse> getSolutionById(@PathVariable Long solutionId) {
         SolutionResponse response = solutionService.getSolutionById(solutionId);
 
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/solutions/start")
+    @PostMapping("/api/v1/solutions/start")
     public ResponseEntity<SolutionResponse> startSolution(
             @Auth Accessor accessor,
             @Valid @RequestBody StartSolutionRequest request
     ) {
         SolutionResponse response = solutionService.startSolution(accessor, request);
 
-        URI location = URI.create("/solutions/" + response.id());
+        URI location = URI.create("/api/v1/solutions/" + response.id());
         return ResponseEntity.created(location).body(response);
     }
 
-    @PatchMapping("/solutions/submit")
+    @PatchMapping("/api/v1/solutions/submit")
     public ResponseEntity<SolutionResponse> submitSolution(
             @Auth Accessor accessor,
             @Valid @RequestBody SubmitSolutionRequest request

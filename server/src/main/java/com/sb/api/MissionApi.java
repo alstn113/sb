@@ -24,14 +24,14 @@ public class MissionApi {
 
     private final MissionService missionService;
 
-    @GetMapping("/missions")
+    @GetMapping("/api/v1/missions")
     public ResponseEntity<List<MissionResponse>> getMissions() {
         List<MissionResponse> responses = missionService.getMissions();
 
         return ResponseEntity.ok(responses);
     }
 
-    @GetMapping("/missions/{missionId}")
+    @GetMapping("/api/v1/missions/{missionId}")
     public ResponseEntity<MissionWithStatusResponse> getMission(
             @Auth(required = false) Accessor accessor,
             @PathVariable Long missionId
@@ -41,15 +41,15 @@ public class MissionApi {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/missions")
+    @PostMapping("/api/v1/missions")
     public ResponseEntity<MissionResponse> createMission(@Valid @RequestBody MissionRequest request) {
         MissionResponse response = missionService.createMission(request);
 
-        URI location = URI.create("/missions/" + response.id());
+        URI location = URI.create("/api/v1/missions/" + response.id());
         return ResponseEntity.created(location).body(response);
     }
 
-    @DeleteMapping("/missions/{missionId}")
+    @DeleteMapping("/api/v1/missions/{missionId}")
     public ResponseEntity<Void> deletePost(@PathVariable Long missionId) {
         missionService.deletePost(missionId);
 

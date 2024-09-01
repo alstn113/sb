@@ -15,7 +15,7 @@ public class MemberApi {
 
     private final MemberService memberService;
 
-    @GetMapping("/members/me")
+    @GetMapping("/api/v1/members/me")
     public ResponseEntity<MemberResponse> getMyInfo(@Auth Accessor accessor) {
         MemberResponse response = memberService.getMemberById(accessor.id());
 
