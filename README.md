@@ -2,7 +2,7 @@
 
 ## Stack
 
-- server: spring
+- server: spring, mysql
 - client: react
 
 ## Link
