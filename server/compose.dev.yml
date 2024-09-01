@@ -25,7 +25,7 @@ services:
     networks:
       - spring-mysql-network
     depends_on:
-      - sb-mysql
+      - mysql
     environment:
       SPRING_PROFILES_ACTIVE: dev
       TZ: Asia/Seoul
