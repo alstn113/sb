@@ -32,8 +32,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	// h2
+	// db
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 
 	// jwt
 	implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
@@ -58,4 +59,12 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+processResources.dependsOn('copySecret')
+
+tasks.register('copySecret', Copy) {
+	from './secrets'
+	include "application*.yml"
+	into './src/main/resources'
 }
