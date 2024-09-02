@@ -42,13 +42,11 @@ CREATE TABLE answer
 
 CREATE TABLE choice
 (
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    answer_id   BIGINT NOT NULL,
-    member_id   BIGINT NOT NULL,
-    question_id BIGINT NOT NULL,
-    FOREIGN KEY (answer_id) REFERENCES answer (id),
-    FOREIGN KEY (member_id) REFERENCES member (id),
-    FOREIGN KEY (question_id) REFERENCES question (id)
+    id                 BIGINT AUTO_INCREMENT PRIMARY KEY,
+    question_option_id BIGINT NOT NULL,
+    member_id          BIGINT NOT NULL,
+    FOREIGN KEY (question_option_id) REFERENCES question_option (id),
+    FOREIGN KEY (member_id) REFERENCES member (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE mission
@@ -76,7 +74,7 @@ CREATE TABLE mission_tag
     FOREIGN KEY (tag_id) REFERENCES tag (id)
 ) ENGINE = InnoDB;
 
-CREATE TABLE option
+CREATE TABLE question_option
 (
     id          BIGINT AUTO_INCREMENT PRIMARY KEY,
     sequence    INT          NOT NULL,

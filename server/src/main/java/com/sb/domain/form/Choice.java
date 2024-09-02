@@ -15,25 +15,20 @@ import lombok.NoArgsConstructor;
 public class Choice extends IdentifiableEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "question_id", nullable = false)
-    private Question question;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "answer_id", nullable = false)
-    private Answer answer;
+    @JoinColumn(name = "question_option_id", nullable = false)
+    private QuestionOption questionOption;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    public Choice(Question question, Answer answer, Member member) {
-        this(null, question, answer, member);
+    public Choice(QuestionOption questionOption, Member member) {
+        this(null, questionOption, member);
     }
 
-    public Choice(Long id, Question question, Answer answer, Member member) {
+    public Choice(Long id, QuestionOption questionOption, Member member) {
         super(id);
-        this.question = question;
-        this.answer = answer;
+        this.questionOption = questionOption;
         this.member = member;
     }
 }

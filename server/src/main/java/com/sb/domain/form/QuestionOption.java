@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 @Getter
-public class Option extends IdentifiableEntity {
+public class QuestionOption extends IdentifiableEntity {
 
     @Column(nullable = false)
     private String text;
@@ -22,11 +22,11 @@ public class Option extends IdentifiableEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
 
-    public Option(String text, int sequence, Question question) {
+    public QuestionOption(String text, int sequence, Question question) {
         this(null, text, sequence, question);
     }
 
-    public Option(Long id, String text, int sequence, Question question) {
+    public QuestionOption(Long id, String text, int sequence, Question question) {
         super(id);
         this.text = text;
         this.sequence = sequence;
