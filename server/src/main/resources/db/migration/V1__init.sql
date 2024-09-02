@@ -40,6 +40,15 @@ CREATE TABLE answer
     FOREIGN KEY (question_id) REFERENCES question (id)
 ) ENGINE = InnoDB;
 
+CREATE TABLE question_option
+(
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sequence    INT          NOT NULL,
+    question_id BIGINT,
+    text        VARCHAR(255) NOT NULL,
+    FOREIGN KEY (question_id) REFERENCES question (id)
+) ENGINE = InnoDB;
+
 CREATE TABLE choice
 (
     id                 BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -72,15 +81,6 @@ CREATE TABLE mission_tag
     tag_id     BIGINT NOT NULL,
     FOREIGN KEY (mission_id) REFERENCES mission (id),
     FOREIGN KEY (tag_id) REFERENCES tag (id)
-) ENGINE = InnoDB;
-
-CREATE TABLE question_option
-(
-    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
-    sequence    INT          NOT NULL,
-    question_id BIGINT,
-    text        VARCHAR(255) NOT NULL,
-    FOREIGN KEY (question_id) REFERENCES question (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE solution
