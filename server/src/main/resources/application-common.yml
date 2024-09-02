@@ -6,7 +6,7 @@ spring:
   jpa:
     show-sql: true
     open-in-view: false
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false # flyway 사용 시 false로 설정
     properties:
       hibernate:
         format_sql: true

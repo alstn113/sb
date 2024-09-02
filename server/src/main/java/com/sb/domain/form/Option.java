@@ -17,19 +17,19 @@ public class Option extends IdentifiableEntity {
     private String text;
 
     @Column(nullable = false)
-    private int order;
+    private int sequence;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Question question;
 
-    public Option(String text, int order, Question question) {
-        this(null, text, order, question);
+    public Option(String text, int sequence, Question question) {
+        this(null, text, sequence, question);
     }
 
-    public Option(Long id, String text, int order, Question question) {
+    public Option(Long id, String text, int sequence, Question question) {
         super(id);
         this.text = text;
-        this.order = order;
+        this.sequence = sequence;
         this.question = question;
     }
 }

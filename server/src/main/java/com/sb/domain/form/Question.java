@@ -24,21 +24,21 @@ public class Question extends IdentifiableEntity {
     private QuestionType type;
 
     @Column(nullable = false)
-    private int order;
+    private int sequence;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_id", nullable = false)
     private Form form;
 
-    public Question(String text, QuestionType type, int order, Form form) {
-        this(null, text, type, order, form);
+    public Question(String text, QuestionType type, int sequence, Form form) {
+        this(null, text, type, sequence, form);
     }
 
-    public Question(Long id, String text, QuestionType type, int order, Form form) {
+    public Question(Long id, String text, QuestionType type, int sequence, Form form) {
         super(id);
         this.text = text;
         this.type = type;
-        this.order = order;
+        this.sequence = sequence;
         this.form = form;
     }
 }
