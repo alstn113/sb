@@ -1,7 +1,7 @@
-package com.sb.api;
+package com.sb.ui;
 
 import java.io.IOException;
-import com.sb.api.common.CookieUtils;
+import com.sb.ui.common.CookieUtils;
 import com.sb.application.auth.oauth.OAuthService;
 import com.sb.domain.member.OAuthProvider;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class AuthApi {
+public class AuthController {
 
     private final OAuthService oauthService;
 

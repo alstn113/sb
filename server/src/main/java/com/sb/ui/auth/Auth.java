@@ -1,4 +1,4 @@
-package com.sb.api.auth;
+package com.sb.ui.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

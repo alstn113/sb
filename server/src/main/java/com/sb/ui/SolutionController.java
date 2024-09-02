@@ -1,8 +1,8 @@
-package com.sb.api;
+package com.sb.ui;
 
 import java.net.URI;
 import java.util.List;
-import com.sb.api.auth.Auth;
+import com.sb.ui.auth.Auth;
 import com.sb.application.auth.Accessor;
 import com.sb.application.solution.SolutionResponse;
 import com.sb.application.solution.SolutionService;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class SolutionApi {
+public class SolutionController {
 
     private final SolutionService solutionService;
 

@@ -1,4 +1,4 @@
-package com.sb.api.common;
+package com.sb.ui.common;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseCookie;

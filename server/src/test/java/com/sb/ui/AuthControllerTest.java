@@ -1,4 +1,4 @@
-package com.sb.api;
+package com.sb.ui;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-class AuthApiTest extends IntegrationTestSupport {
+class AuthControllerTest extends IntegrationTestSupport {
 
     @MockBean
     private OAuthService oauthService;

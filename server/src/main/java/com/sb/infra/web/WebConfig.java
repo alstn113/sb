@@ -1,8 +1,8 @@
 package com.sb.infra.web;
 
 import java.util.List;
-import com.sb.api.OAuthProviderConverter;
-import com.sb.api.auth.AuthArgumentResolver;
+import com.sb.ui.OAuthProviderConverter;
+import com.sb.ui.auth.AuthArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;

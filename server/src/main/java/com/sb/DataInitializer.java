@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-@Profile("!test")
+@Profile("local")
 @RequiredArgsConstructor
 public class DataInitializer implements ApplicationRunner {
 

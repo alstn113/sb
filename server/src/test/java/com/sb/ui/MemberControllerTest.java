@@ -1,4 +1,4 @@
-package com.sb.api;
+package com.sb.ui;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-class MemberApiTest extends IntegrationTestSupport {
+class MemberControllerTest extends IntegrationTestSupport {
 
     @MockBean
     private JwtTokenProvider jwtTokenProvider;

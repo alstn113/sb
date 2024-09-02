@@ -1,8 +1,8 @@
-package com.sb.api.auth;
+package com.sb.ui.auth;
 
 import static java.util.Objects.requireNonNull;
 
-import com.sb.api.common.CookieUtils;
+import com.sb.ui.common.CookieUtils;
 import com.sb.application.auth.Accessor;
 import com.sb.application.auth.AuthService;
 import com.sb.application.member.MemberResponse;

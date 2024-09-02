@@ -1,4 +1,4 @@
-package com.sb.api;
+package com.sb.ui;
 
 import com.sb.domain.member.OAuthProvider;
 import org.springframework.core.convert.converter.Converter;

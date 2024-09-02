@@ -1,4 +1,4 @@
-package com.sb.api.auth;
+package com.sb.ui.auth;
 
 import java.util.Arrays;
 import jakarta.servlet.http.Cookie;
