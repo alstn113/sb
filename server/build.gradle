@@ -35,8 +35,6 @@ dependencies {
 	// db
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
-	implementation 'org.flywaydb:flyway-core'
-	implementation 'org.flywaydb:flyway-mysql'
 
 	// jwt
 	implementation "io.jsonwebtoken:jjwt-api:${JJWT_VERSION}"
