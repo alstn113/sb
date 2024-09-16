@@ -15,9 +15,9 @@ public class GithubOAuthClient {
     private final GithubOAuthProperties properties;
     private final RestClient restClient;
 
-    public GithubOAuthClient(GithubOAuthProperties properties) {
+    public GithubOAuthClient(GithubOAuthProperties properties, RestClient.Builder restClientBuilder) {
         this.properties = properties;
-        this.restClient = RestClient.create();
+        this.restClient = restClientBuilder.build();
     }
 
     public GithubAccessTokenResponse fetchAccessToken(String code) {
