@@ -3,6 +3,7 @@ package com.sb.infra.auth.oauth.github;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
@@ -10,6 +11,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sb.infra.auth.oauth.github.dto.GithubAccessTokenRequest;
 import com.sb.infra.auth.oauth.github.dto.GithubAccessTokenResponse;
 import com.sb.infra.auth.oauth.github.dto.GithubUserDetailsResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,9 +52,11 @@ class GithubOAuthClientTest {
     @DisplayName("깃허브 인증 서버에서 액세스 토큰을 가져온다.")
     void fetchAccessToken() throws JsonProcessingException {
         GithubAccessTokenResponse expectedResponse = new GithubAccessTokenResponse("access-token", "token-type", "scope");
+        GithubAccessTokenRequest expectedRequest = new GithubAccessTokenRequest("code", "client-id", "client-secret");
 
         mockServer.expect(requestTo("https://github.com/login/oauth/access_token"))
                 .andExpect(method(HttpMethod.POST))
+                .andExpect(content().json(objectMapper.writeValueAsString(expectedRequest)))
                 .andRespond(withStatus(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(objectMapper.writeValueAsString(expectedResponse))
