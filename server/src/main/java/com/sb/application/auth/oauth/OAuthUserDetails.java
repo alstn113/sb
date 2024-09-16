@@ -9,10 +9,9 @@ public record OAuthUserDetails(
         Long id,
         @Nullable String email,
         String username,
-        @Nullable String displayName,
+        String displayName,
         String avatarUrl
 ) {
-
     public Member toMember(OAuthProvider provider) {
         return new Member(
                 email,

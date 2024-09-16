@@ -11,15 +11,20 @@ public record GithubUserDetailsResponse(
         String login,
         String avatarUrl,
         @Nullable String email,
-        String name
+        @Nullable String name
 ) {
 
     public OAuthUserDetails toOAuthUserDetails() {
+        String displayName = name;
+        if (displayName == null || displayName.isBlank()) {
+            displayName = login;
+        }
+
         return new OAuthUserDetails(
                 id,
                 email,
                 login,
-                name,
+                displayName,
                 avatarUrl
         );
     }
