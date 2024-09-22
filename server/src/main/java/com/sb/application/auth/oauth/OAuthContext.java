@@ -28,7 +28,7 @@ public class OAuthContext {
     }
 
     private OAuthStrategy getOAuthStrategy(OAuthProvider provider) {
-        return oauthStrategyRegistry.getProvider(provider)
+        return oauthStrategyRegistry.getOAuthStrategy(provider)
                 .orElseThrow(() -> new SbException(ExceptionType.OAUTH_PROVIDER_NOT_FOUND));
     }
 }

@@ -3,8 +3,8 @@ name: Server CD
 on:
   workflow_dispatch:
   push:
-    branches: [ 'main', 'dev' ]
-    paths: [ 'server/**' ]
+    branches: ['main', 'dev']
+    paths: ['server/**']
 
 env:
   DOCKERHUB_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_IMAGE_NAME }}:${{ github.sha }}
@@ -61,7 +61,7 @@ jobs:
     name: Deploy with Docker
     needs: build
     environment: dev
-    runs-on: [ self-hosted ]
+    runs-on: [self-hosted]
     timeout-minutes: 5
     defaults:
       run:
@@ -74,6 +74,10 @@ jobs:
 
       # 컨테이너를 종료하지 않아도 종료 후 실행됨 (추정)
       - name: Docker run
+        env:
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+          MYSQL_USER: ${{ secrets.MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         run: docker compose -f compose.dev.yml up -d
 
       # 모든 사용되지 않는 이미지 삭제
